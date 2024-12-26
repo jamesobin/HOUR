@@ -6,6 +6,26 @@
 	margin:0 auto;
 }
 
+header > .logo {
+	height:80px;
+}
+
+header > .menu {
+	height:80px;
+}
+
+.contents > .side-menu {
+	height:600px;
+}
+
+.side-menu > .timetable-info {
+	height:100px;
+}
+
+.contents > .main-contents {
+	height:600px;
+}
+
 footer {
 	height:70px;
 	font-size:12px;
@@ -13,4 +33,17 @@ footer {
 
 ::placeholder {
 	font-size:12px;
+}
+
+select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+option {
+  padding: 4px;
+  color: #fff;
+  background: #272822;
 }
