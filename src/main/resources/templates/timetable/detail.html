@@ -13,13 +13,16 @@
 			<div class="logo col-2 d-flex align-items-center">
 				<h1>H<span class="text-danger">:</span>OUR</h1>
 			</div>
-            <nav class="menu col-10 d-flex align-items-center justify-content-center">
+            <nav class="menu col-8 d-flex align-items-center justify-content-center">
                 <ul class="nav nav-fill w-75">
                     <li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">시간표</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">성적</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-dark font-weight-bold">다이어리</a></li>
                 </ul>
-            </nav>			
+            </nav>	
+            <div class="col-2 p-0 d-flex align-items-center justify-content-end text-sm-right" th:if="${session.userId != null}">
+				<span th:text="|${session.userName}님|">권오빈님</span> <a href="/user/logout" class="ml-2">로그아웃</a>
+			</div>		
 		</header>
 		<section class="contents d-flex mt-4">
 			<aside class="side-menu col-2">
