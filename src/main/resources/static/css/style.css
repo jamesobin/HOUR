@@ -14,12 +14,13 @@ header > .menu {
 	height:80px;
 }
 
-.contents > .side-menu {
-	height:600px;
-}
-
 .side-menu > .timetable-info {
 	height:100px;
+}
+
+input[type=radio]:checked + label { 
+	background-color:#f95735;
+	border:#f95735; 
 }
 
 footer {
