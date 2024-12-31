@@ -13,4 +13,9 @@ public class TimetableController {
 		return "timetable/detail";
 	}
 	
+	@GetMapping("/input-view")
+	public String addTimetable() {
+		return "timetable/input";
+	}
+	
 }
