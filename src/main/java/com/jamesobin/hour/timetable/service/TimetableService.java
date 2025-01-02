@@ -1,7 +1,5 @@
 package com.jamesobin.hour.timetable.service;
 
-import java.sql.Time;
-
 import org.springframework.stereotype.Service;
 
 import com.jamesobin.hour.timetable.domain.Timetable;
@@ -23,11 +21,12 @@ public class TimetableService {
 			, String professorName
 			, int credit
 			, String day
-			, Time startTime
-			, Time endTime
+			, String startTime
+			, String endTime
 			, String classRoom) {
 		Timetable timetable = Timetable.builder()
 				.userId(userId)
+				.term(term)
 				.lectureName(lectureName)
 				.professorName(professorName)
 				.credit(credit)

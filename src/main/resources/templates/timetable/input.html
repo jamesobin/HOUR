@@ -6,11 +6,20 @@
     
 		<section layout:fragment="contents" class="contents d-flex mt-4">
 			<aside class="side-menu col-2">
-				<select>
-					<option selected>시간표 선택</option>
-					<option>2018년 1학기</option>
-					<option>2018년 2학기</option>
-					<option>2019년 1학기</option>
+				<select id="termInput">
+					<option value="학기 선택">학기 선택</option>
+					<option value="1">1학년 1학기</option>
+					<option value="2">1학년 2학기</option>
+					<option value="3">2학년 1학기</option>
+					<option value="4">2학년 2학기</option>
+					<option value="5">3학년 1학기</option>
+					<option value="6">3학년 2학기</option>
+					<option value="7">4학년 1학기</option>
+					<option value="8">4학년 2학기</option>
+					<option value="9">5학년 1학기</option>
+					<option value="10">5학년 2학기</option>
+					<option value="11">6학년 1학기</option>
+					<option value="12">6학년 2학기</option>
 				</select>
 				<div class="timetable-info border border-dark mt-3 d-flex align-items-center p-2">
 					<div>
@@ -21,49 +30,34 @@
 				<button type="button" class="btn btn-block btn-dark mt-3" id="addLectureBtn">수업 추가</button>
 				<div class="input-menu border border-dark mt-3 p-2">
 					<div class="text-center"><h4 class="font-weight-bold">새 수업 추가</h4></div>
-					<select class="mt-2" id="termInput">
-						<option selected>학기 선택</option>
-						<option>1학년 1학기</option>
-						<option>1학년 2학기</option>
-						<option>2학년 1학기</option>
-						<option>2학년 2학기</option>
-						<option>3학년 1학기</option>
-						<option>3학년 2학기</option>
-						<option>4학년 1학기</option>
-						<option>4학년 2학기</option>
-						<option>5학년 1학기</option>
-						<option>5학년 2학기</option>
-						<option>6학년 1학기</option>
-						<option>6학년 2학기</option>
-					</select>
 					<label class="mt-2">강의명</label><input type="text" class="form-control" id="lectureNameInput">
 					<label class="mt-2">교수명</label><input type="text" class="form-control" id="professorNameInput">
 					<label class="mt-2">이수 학점</label>
 					<select id="creditInput">
 						<option selected></option>
-						<option>0</option>
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-						<option>6</option>
-						<option>7</option>
-						<option>8</option>
-						<option>9</option>
+						<option value="0">0</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
 					</select>
 					<label class="mt-2">시간/장소</label>
 					<div class="border border-dark p-2">
 						<div class="d-flex justify-content-between">
-							<input type="radio" class="day-btn d-none" id="mon-btn" autocomplete="off" name="day">
+							<input type="radio" class="day-btn d-none" id="mon-btn" autocomplete="off" name="day" value="월">
 							<label class="btn btn-sm btn-secondary" for="mon-btn">월</label>
-							<input type="radio" class="day-btn d-none" id="tue-btn" autocomplete="off" name="day">
+							<input type="radio" class="day-btn d-none" id="tue-btn" autocomplete="off" name="day" value="화">
 							<label class="btn btn-sm btn-secondary" for="tue-btn">화</label>
-							<input type="radio" class="day-btn d-none" id="wed-btn" autocomplete="off" name="day">
+							<input type="radio" class="day-btn d-none" id="wed-btn" autocomplete="off" name="day" value="수">
 							<label class="btn btn-sm btn-secondary" for="wed-btn">수</label>
-							<input type="radio" class="day-btn d-none" id="thu-btn" autocomplete="off" name="day">
+							<input type="radio" class="day-btn d-none" id="thu-btn" autocomplete="off" name="day" value="목">
 							<label class="btn btn-sm btn-secondary" for="thu-btn">목</label>
-							<input type="radio" class="day-btn d-none" id="fri-btn" autocomplete="off" name="day">
+							<input type="radio" class="day-btn d-none" id="fri-btn" autocomplete="off" name="day" value="금">
 							<label class="btn btn-sm btn-secondary" for="fri-btn">금</label>
 						</div>
 						<div class="mt-2 d-flex align-items-end">
@@ -94,7 +88,7 @@
 					<tbody height="640px">
 						<tr>
 							<th>1교시</th>
-							<td class="table-primary"></td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -168,25 +162,30 @@
 				let lectureName = $("#lectureNameInput").val();
 				let professorName = $("#professorNameInput").val();
 				let credit = $("#creditInput option:selected").val();
+				let day = $("input[name='day']:checked").val();
 				let startTime = $("#startTimeInput").val();
 				let endTime = $("#endTimeInput").val();
 				let classRoom = $("#classRoomInput").val();
 				
 				if(term == "학기 선택") {
 					alert("학기를 선택하세요");
-					return ;
+					return;
 				}
 				if(lectureName == "") {
 					alert("강의명을 입력하세요");
-					return ;
+					return;
 				}
 				if(professorName == "") {
 					alert("교수명을 입력하세요");
-					return ;
+					return;
 				}
 				if(credit == "") {
 					alert("이수 학점을 선택하세요");
-					return ;
+					return;
+				}
+				if(day == null) {
+					alert("요일을 선택하세요");
+					return;
 				}
 				if(startTime == "") {
 					alert("수업 시작 시간을 입력하세요");
@@ -201,7 +200,35 @@
 					return;
 				}
 				
+				let formData = new FormData();
 				
+				formData.append("term", term);
+				formData.append("lectureName", lectureName);
+				formData.append("professorName", professorName);
+				formData.append("credit", credit);
+				formData.append("day", day);
+				formData.append("startTime", startTime);
+				formData.append("endTime", endTime);
+				formData.append("classRoom", classRoom);
+				
+				$.ajax({
+					type:"post"
+					, url:"/timetable/create"
+					, data:formData
+					, enctype:"multipart/form-data"
+					, processData:false
+					, contentType:false
+					, success:function(response) {
+						if(response.result == "success") {
+							location.href = "/timetable/input-view";
+						} else {
+							alert("수업 추가 실패!");
+						}
+					}
+					, error:function() {
+						alert("수업 추가 에러!");
+					}
+				});
 			});
 		});
 	</script>

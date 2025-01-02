@@ -1,17 +1,19 @@
 package com.jamesobin.hour.timetable;
 
-import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jamesobin.hour.timetable.service.TimetableService;
 
 import jakarta.servlet.http.HttpSession;
 
-@Controller
+@RequestMapping("/timetable")
+@RestController
 public class TimetableRestController {
 	private TimetableService timetableService;
 	
@@ -19,14 +21,15 @@ public class TimetableRestController {
 		this.timetableService = timetableService;
 	}
 	
+	@PostMapping("/create")
 	public Map<String, String> createTimetable(
 			@RequestParam("term") int term
 			, @RequestParam("lectureName") String lectureName
 			, @RequestParam("professorName") String professorName
 			, @RequestParam("credit") int credit
 			, @RequestParam("day") String day
-			, @RequestParam("startTime") Time startTime
-			, @RequestParam("endTime") Time endTime
+			, @RequestParam("startTime") String startTime
+			, @RequestParam("endTime") String endTime
 			, @RequestParam("classRoom") String classRoom
 			, HttpSession session) {
 		int userId = (Integer)session.getAttribute("userId");

@@ -1,8 +1,6 @@
 package com.jamesobin.hour.timetable.domain;
 
-import java.sql.Time;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name="`timetable`")
+@Table(name="`lecture`")
 @Entity
 public class Timetable {
 	@Id
@@ -39,20 +37,18 @@ public class Timetable {
 	@Column(name="professorName")
 	private String professorName;
 	
+	private int credit;
+	
 	private String day;
 	
 	@Column(name="startTime")
-	private Time startTime;
+	private String startTime;
 	
 	@Column(name="endTime")
-	private Time endTime;
+	private String endTime;
 	
 	@Column(name="classRoom")
 	private String classRoom;
-	
-	private int credit;
-	
-	private double grade;
 	
 	@Column(name="createdAt")
 	@CreationTimestamp	
