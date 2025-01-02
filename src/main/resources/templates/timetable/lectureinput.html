@@ -147,7 +147,7 @@
 		
 	<script layout:fragment="script">
 		$(document).ready(function() {
-			$("#timetableSelect").on("change", function() {
+			$("#timetableSelect").on("click", function() {
 				let timetable = $("#timetableSelect option:selected").text();
 				
 				$("#timetable").text(timetable);

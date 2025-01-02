@@ -2,6 +2,7 @@ package com.jamesobin.hour.timetable.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -62,6 +63,27 @@ public class TimetableService {
 		}
 		
 		return tableList;
+	}
+	
+	public boolean deleteTimetable(int id, int userId) {
+		Optional<Timetable> optionalTimetable = timetableRepository.findById(id);
+		
+		if(optionalTimetable.isPresent()) {
+			Timetable timetable = optionalTimetable.get();
+			
+			if(timetable.getUserId() == userId) {
+				lectureService.deleteLectureByTimetableId(id);
+				
+				timetableRepository.delete(timetable);
+				
+				return true;				
+			} else {
+				return false;
+			}
+			
+		} else {
+			return false;
+		}
 	}
 	
 }

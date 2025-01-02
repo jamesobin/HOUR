@@ -6,20 +6,21 @@
     
 		<section layout:fragment="contents" class="contents d-flex mt-4">
 			<aside class="side-menu col-2">
-				<select>
+				<select id="timetableSelect">
+					<option selected>시간표 선택</option>
 				    <th:block th:each="timetable:${timetableList}">
-				        <option th:value="${timetable.id}" th:text="${timetable.timetableName}">2018년도 1학기</option>
+				        <option th:value="${timetable.id}" th:text="${timetable.timetableName}"></option>
 				    </th:block>
 				</select>
 				<div class="timetable-info border border-dark mt-3 d-flex align-items-center p-2">
 					<div>
-						<div>시간표 이름</div>
+						<div id="timetable">시간표 이름</div>
 						<div class="mt-3">18학점</div>
 					</div>
 				</div>
 				<button type="button" class="btn btn-block btn-dark mt-3" onclick = "location.href='/timetable/input-view'">+새 시간표 만들기</button>
 				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='#'">시간표 수정</button>
-				<button type="button" class="btn btn-block btn-dark">시간표 삭제</button>
+				<button type="button" class="btn btn-block btn-dark" id="deleteBtn">시간표 삭제</button>
 			</aside>
 			<div class="main-contents col-10">
 				<table border="1" width="1300px">
@@ -110,6 +111,34 @@
 				</table>
 			</div>
 		</section>
-	
+	<script layout:fragment="script">
+		$(document).ready(function() {
+			$("#timetableSelect").on("click", function() {
+				let timetable = $("#timetableSelect option:selected").text();
+				
+				$("#timetable").text(timetable);
+			});
+			
+			$("#deleteBtn").on("click", function() {
+				let id = $("#timetableSelect option:selected").val();
+				
+				$.ajax({
+					type:"delete"
+					, url:"/timetable/delete"
+					, data:{"id":id}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.href="/timetable/detail-view";
+						} else {
+							alert("삭제 실패!");
+						}
+					}
+					, error:function() {
+						alert("삭제 에러!");
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

@@ -71,4 +71,8 @@ public class LectureService {
 		return lectureDTOList;
 	}
 	
+	public void deleteLectureByTimetableId(int timetableId) {
+		lectureRepository.deleteByTimetableId(timetableId);
+	}
+	
 }
