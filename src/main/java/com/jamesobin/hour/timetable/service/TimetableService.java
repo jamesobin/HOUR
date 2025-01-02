@@ -1,39 +1,35 @@
 package com.jamesobin.hour.timetable.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.jamesobin.hour.lecture.dto.LectureDTO;
+import com.jamesobin.hour.lecture.service.LectureService;
 import com.jamesobin.hour.timetable.domain.Timetable;
+import com.jamesobin.hour.timetable.dto.TimetableDTO;
 import com.jamesobin.hour.timetable.repository.TimetableRepository;
 
 @Service
 public class TimetableService {
 	
 	private TimetableRepository timetableRepository;
+	private LectureService lectureService;
 	
-	public TimetableService(TimetableRepository timetableRepository) {
+	public TimetableService(TimetableRepository timetableRepository, LectureService lectureService) {
 		this.timetableRepository = timetableRepository;
+		this.lectureService = lectureService;
 	}
 
 	public boolean addTimetable(
 			int userId
 			, int term
-			, String lectureName
-			, String professorName
-			, int credit
-			, String day
-			, String startTime
-			, String endTime
-			, String classRoom) {
+			, String timetableName) {
 		Timetable timetable = Timetable.builder()
 				.userId(userId)
 				.term(term)
-				.lectureName(lectureName)
-				.professorName(professorName)
-				.credit(credit)
-				.day(day)
-				.startTime(startTime)
-				.endTime(endTime)
-				.classRoom(classRoom)
+				.timetableName(timetableName)
 				.build();
 		
 		try {			
@@ -42,6 +38,30 @@ public class TimetableService {
 		} catch(Exception e) {
 			return false;
 		}
+	}
+	
+	public List<Timetable> getTimetableList(int userId) {
+		return timetableRepository.findByUserIdOrderByTimetableNameDesc(userId);
+	}
+	
+	public List<TimetableDTO> getTableList(int userId) {
+		
+		List<Timetable> timetableList = timetableRepository.findByUserIdOrderByTimetableNameDesc(userId);
+		
+		List<TimetableDTO> tableList = new ArrayList<>();
+		for(Timetable timetable:timetableList) {
+			List<LectureDTO> lectureList = lectureService.getLectureList(timetable.getId());
+			
+			TimetableDTO table = TimetableDTO.builder()
+			.timetableId(timetable.getId())
+			.userId(timetable.getUserId())
+			.lectureList(lectureList)
+			.build();
+			
+			tableList.add(table);
+		}
+		
+		return tableList;
 	}
 	
 }

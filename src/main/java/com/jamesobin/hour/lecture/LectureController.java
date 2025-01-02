@@ -1,4 +1,4 @@
-package com.jamesobin.hour.timetable;
+package com.jamesobin.hour.lecture;
 
 import java.util.List;
 
@@ -14,27 +14,21 @@ import jakarta.servlet.http.HttpSession;
 
 @RequestMapping("/timetable")
 @Controller
-public class TimetableController {
+public class LectureController {
 	private TimetableService timetableService;
 	
-	public TimetableController(TimetableService timetableService) {
+	public LectureController(TimetableService timetableService) {
 		this.timetableService = timetableService;
 	}
-	
-	@GetMapping("/detail-view")
-	public String timetable(Model model, HttpSession session) {
+
+	@GetMapping("/lecture/input-view")
+	public String addLecture(Model model, HttpSession session) {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		List<Timetable> timetableList = timetableService.getTimetableList(userId);
 		
 		model.addAttribute("timetableList", timetableList);
 		
-		return "timetable/detail";
+		return "timetable/lectureinput";
 	}
-	
-	@GetMapping("/input-view")
-	public String addTimetable() {
-		return "timetable/input";
-	}
-	
 }

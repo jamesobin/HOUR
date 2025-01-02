@@ -1,4 +1,4 @@
-package com.jamesobin.hour.timetable.domain;
+package com.jamesobin.hour.lecture.domain;
 
 import java.time.LocalDateTime;
 
@@ -20,19 +20,37 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name="`timetable`")
+@Table(name="`lecture`")
 @Entity
-public class Timetable {
+public class Lecture {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	@Column(name="userId")
 	private int userId;
 	
-	private int term;
+	@Column(name="timetableId")
+	private int timetableId;
 	
-	@Column(name="timetableName")
-	private String timetableName;
+	@Column(name="lectureName")
+	private String lectureName;
+	
+	@Column(name="professorName")
+	private String professorName;
+	
+	private String day;
+	
+	@Column(name="startTime")
+	private String startTime;
+	
+	@Column(name="endTime")
+	private String endTime;
+	
+	@Column(name="classRoom")
+	private String classRoom;
+	
+	private int credit;
 	
 	@Column(name="createdAt")
 	@CreationTimestamp

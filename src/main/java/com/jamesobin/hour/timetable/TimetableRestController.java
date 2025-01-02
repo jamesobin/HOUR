@@ -24,19 +24,13 @@ public class TimetableRestController {
 	@PostMapping("/create")
 	public Map<String, String> createTimetable(
 			@RequestParam("term") int term
-			, @RequestParam("lectureName") String lectureName
-			, @RequestParam("professorName") String professorName
-			, @RequestParam("credit") int credit
-			, @RequestParam("day") String day
-			, @RequestParam("startTime") String startTime
-			, @RequestParam("endTime") String endTime
-			, @RequestParam("classRoom") String classRoom
+			, @RequestParam("timetableName") String timetableName
 			, HttpSession session) {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
-		if(timetableService.addTimetable(userId, term, lectureName, professorName, credit, day, startTime, endTime, classRoom)) {
+		if(timetableService.addTimetable(userId, term, timetableName)) {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");
@@ -44,5 +38,5 @@ public class TimetableRestController {
 		
 		return resultMap;
 	}
-	
+
 }
