@@ -13,6 +13,7 @@ public class TimetableDTO {
 	
 	private int timetableId;
 	private int userId;
+	private String timetableName;
 	
 	List<LectureDTO> lectureList;
 	

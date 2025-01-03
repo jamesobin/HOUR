@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.jamesobin.hour.timetable.domain.Timetable;
+import com.jamesobin.hour.timetable.dto.TimetableDTO;
 import com.jamesobin.hour.timetable.service.TimetableService;
 
 import jakarta.servlet.http.HttpSession;
@@ -25,10 +25,11 @@ public class LectureController {
 	public String addLecture(Model model, HttpSession session) {
 		int userId = (Integer)session.getAttribute("userId");
 		
-		List<Timetable> timetableList = timetableService.getTimetableList(userId);
+		List<TimetableDTO> tableList = timetableService.getTimetableList(userId);
 		
-		model.addAttribute("timetableList", timetableList);
+		model.addAttribute("tableList", tableList);
 		
 		return "timetable/lectureinput";
 	}
+
 }

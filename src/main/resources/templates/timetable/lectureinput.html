@@ -7,8 +7,8 @@
 		<section layout:fragment="contents" class="contents d-flex mt-4">
 			<aside class="side-menu col-2">
 				<select id="timetableSelect">
-				    <th:block th:each="timetable:${timetableList}">
-				        <option th:value="${timetable.id}" th:text="${timetable.timetableName}">2018년도 1학기</option>
+				    <th:block th:each="timetable:${tableList}">
+				        <option th:value="${timetable.timetableId}" th:text="${timetable.timetableName}"></option>
 				    </th:block>
 				</select>
 				<div class="timetable-info border border-dark mt-3 d-flex align-items-center p-2">

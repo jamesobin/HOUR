@@ -8,8 +8,8 @@
 			<aside class="side-menu col-2">
 				<select id="timetableSelect">
 					<option selected>시간표 선택</option>
-				    <th:block th:each="timetable:${timetableList}">
-				        <option th:value="${timetable.id}" th:text="${timetable.timetableName}"></option>
+				    <th:block th:each="timetable:${tableList}">
+				        <option th:value="${timetable.timetableId}" th:text="${timetable.timetableName}"></option>
 				    </th:block>
 				</select>
 				<div class="timetable-info border border-dark mt-3 d-flex align-items-center p-2">
@@ -107,6 +107,30 @@
 							<td></td>
 							<td></td>
 						</tr>
+					</tbody>
+				</table>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>강의명</th>
+							<th>교수명</th>
+							<th>강의실</th>
+							<th>학기</th>
+							<th>수업 시작 시간</th>
+							<th>수업 종료 시간</th>
+						</tr>
+					</thead>
+					<tbody>
+						<th:block th:each="table:${tableList}">
+							<tr th:each="lecture:${table.lectureList}">
+								<td th:text="${lecture.lectureName}">건축공학개론</td>
+								<td th:text="${lecture.professorName}">홍원기</td>
+								<td th:text="${lecture.classRoom}">공176</td>
+								<td th:text="${table.timetableId}">2018년도 1학기</td>
+								<td th:text="${lecture.startTime}">10:30</td>
+								<td th:text="${lecture.endTime}">12:00</td>
+							</tr>
+						</th:block>
 					</tbody>
 				</table>
 			</div>

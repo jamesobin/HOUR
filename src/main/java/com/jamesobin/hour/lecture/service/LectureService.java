@@ -74,5 +74,5 @@ public class LectureService {
 	public void deleteLectureByTimetableId(int timetableId) {
 		lectureRepository.deleteByTimetableId(timetableId);
 	}
-	
+
 }
