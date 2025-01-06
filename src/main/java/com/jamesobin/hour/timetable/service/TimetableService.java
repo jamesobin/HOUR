@@ -42,7 +42,6 @@ public class TimetableService {
 	}
 	
 	public List<TimetableDTO> getTimetableList(int userId) {
-		
 		List<Timetable> timetableList = timetableRepository.findByUserIdOrderByTermDesc(userId);
 		
 		List<TimetableDTO> tableList = new ArrayList<>();
