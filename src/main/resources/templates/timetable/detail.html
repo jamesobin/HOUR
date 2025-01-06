@@ -2,7 +2,7 @@
 <html lang="ko" 
     xmlns:th="http://www.thymeleaf.org" 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/default}">
+    layout:decorate="~{layout/include-timetable}">
     
 		<section layout:fragment="contents" class="contents d-flex mt-4">
 			<aside class="side-menu col-2">
@@ -22,11 +22,11 @@
 				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='#'">시간표 수정</button>
 				<button type="button" class="btn btn-block btn-dark" id="deleteBtn">시간표 삭제</button>
 			</aside>
-			<div class="main-contents col-10">
-				<table border="1" width="1300px">
+			<div class="main-contents col-10 d-flex justify-content-center">
+				<table id="time-table">
 					<thead>
 						<tr>
-							<th width="100px"></th>
+							<th></th>
 							<th>월</th>
 							<th>화</th>
 							<th>수</th>
@@ -34,103 +34,481 @@
 							<th>금</th>
 						</tr>
 					</thead>
-					<tbody height="640px">
+					<tbody>
 						<tr>
 							<th>1교시</th>
-							<td class="table-primary">
-								<div>
-									<div>주제연구</div>
-									<div class="d-flex">
-										<div>오승희</div>
-										<div>우정원B109</div>
-									</div>
-								</div>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '09:00' || lecture.endTime == '10:30') && lecture.day == '월'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
 							</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '09:00' || lecture.endTime == '10:30') && lecture.day == '화'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '09:00' || lecture.endTime == '10:30') && lecture.day == '수'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '09:00' || lecture.endTime == '10:30') && lecture.day == '목'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '09:00' || lecture.endTime == '10:30') && lecture.day == '금'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
 						</tr>
 						<tr>
 							<th>2교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '10:30' || lecture.endTime == '12:00') && lecture.day == '월'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '10:30' || lecture.endTime == '12:00') && lecture.day == '화'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '10:30' || lecture.endTime == '12:00') && lecture.day == '수'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '10:30' || lecture.endTime == '12:00') && lecture.day == '목'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '10:30' || lecture.endTime == '12:00') && lecture.day == '금'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+									</th:block>
+								</th:block>
+							</td>
 						</tr>
 						<tr>
 							<th>3교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '12:00' || lecture.endTime == '13:30') && lecture.day == '월'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '12:00' || lecture.endTime == '13:30') && lecture.day == '화'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '12:00' || lecture.endTime == '13:30') && lecture.day == '수'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '12:00' || lecture.endTime == '13:30') && lecture.day == '목'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '12:00' || lecture.endTime == '13:30') && lecture.day == '금'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
 						</tr>
 						<tr>
 							<th>4교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '13:30' || lecture.endTime == '15:00') && lecture.day == '월'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '13:30' || lecture.endTime == '15:00') && lecture.day == '화'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '13:30' || lecture.endTime == '15:00') && lecture.day == '수'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '13:30' || lecture.endTime == '15:00') && lecture.day == '목'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '13:30' || lecture.endTime == '15:00') && lecture.day == '금'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
 						</tr>
 						<tr>
 							<th>5교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '15:00' || lecture.endTime == '16:30') && lecture.day == '월'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '15:00' || lecture.endTime == '16:30') && lecture.day == '화'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '15:00' || lecture.endTime == '16:30') && lecture.day == '수'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '15:00' || lecture.endTime == '16:30') && lecture.day == '목'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '15:00' || lecture.endTime == '16:30') && lecture.day == '금'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
 						</tr>
 						<tr>
 							<th>6교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '16:30' || lecture.endTime == '18:00') && lecture.day == '월'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '16:30' || lecture.endTime == '18:00') && lecture.day == '화'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '16:30' || lecture.endTime == '18:00') && lecture.day == '수'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '16:30' || lecture.endTime == '18:00') && lecture.day == '목'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '16:30' || lecture.endTime == '18:00') && lecture.day == '금'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
 						</tr>
 						<tr>
 							<th>7교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '18:00' || lecture.endTime == '19:30') && lecture.day == '월'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '12:00' || lecture.endTime == '13:30') && lecture.day == '화'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '18:00' || lecture.endTime == '19:30') && lecture.day == '수'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '18:00' || lecture.endTime == '19:30') && lecture.day == '목'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
+							<td>
+								<th:block th:each="table:${tableList}">
+									<th:block th:each="lecture:${table.lectureList}">
+										<th:block th:if="${(lecture.startTime == '18:00' || lecture.endTime == '19:30') && lecture.day == '금'}">
+											<b th:utext="${lecture.lectureName}"></b>
+											<div class="d-flex small-text">
+												<b th:text="${lecture.professorName}" class="mr-2"></b>
+												<div th:text="${lecture.classRoom}"></div>
+											</div>
+										</th:block>
+									</th:block>
+								</th:block>
+							</td>
 						</tr>
-						<tr>
-							<th>8교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
-				<table class="table">
-					<thead>
-						<tr>
-							<th>강의명</th>
-							<th>교수명</th>
-							<th>강의실</th>
-							<th>학기</th>
-							<th>수업 시작 시간</th>
-							<th>수업 종료 시간</th>
-						</tr>
-					</thead>
-					<tbody>
-						<th:block th:each="table:${tableList}">
-							<tr th:each="lecture:${table.lectureList}">
-								<td th:text="${lecture.lectureName}">건축공학개론</td>
-								<td th:text="${lecture.professorName}">홍원기</td>
-								<td th:text="${lecture.classRoom}">공176</td>
-								<td th:text="${table.timetableId}">2018년도 1학기</td>
-								<td th:text="${lecture.startTime}">10:30</td>
-								<td th:text="${lecture.endTime}">12:00</td>
-							</tr>
-						</th:block>
 					</tbody>
 				</table>
 			</div>

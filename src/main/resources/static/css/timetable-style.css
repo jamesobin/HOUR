@@ -1,1 +1,29 @@
 @charset "UTF-8";
+.main-contents > #time-table {
+	border: 1px solid black;
+    border-collapse: collapse;
+    width:1300px;
+}
+
+th {
+	border:1px solid black;
+}
+
+thead {
+	width:100px;
+	text-align:center;
+}
+
+tbody {
+	height:640px;
+}
+
+ td {
+ 	width:240px;
+	height:50px;
+	border:1px solid black;
+ }
+ 
+ .small-text {
+ 	font-size:14px;
+ }

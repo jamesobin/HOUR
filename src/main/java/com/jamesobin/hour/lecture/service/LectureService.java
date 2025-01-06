@@ -61,6 +61,7 @@ public class LectureService {
 					.professorName(lecture.getProfessorName())
 					.classRoom(lecture.getClassRoom())
 					.credit(lecture.getCredit())
+					.day(lecture.getDay())
 					.startTime(lecture.getStartTime())
 					.endTime(lecture.getEndTime())
 					.build();

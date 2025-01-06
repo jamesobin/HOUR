@@ -2,7 +2,7 @@
 <html lang="ko" 
     xmlns:th="http://www.thymeleaf.org" 
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layout/default}">
+    layout:decorate="~{layout/include-timetable}">
     
 		<section layout:fragment="contents" class="contents d-flex mt-4">
 			<aside class="side-menu col-2">
@@ -51,10 +51,10 @@
 							<label class="btn btn-sm btn-secondary" for="fri-btn">금</label>
 						</div>
 						<div class="mt-2 d-flex align-items-end">
-							<label class="w-100">수업 시작</label><input type='time' class="form-control" id="startTimeInput">
+							<label class="w-100">수업 시작</label><input type="time" class="form-control" id="startTimeInput">
 						</div>
 						<div class="mt-2 d-flex align-items-end">
-							<label class="w-100">수업 종료</label><input type='time' class="form-control" id="endTimeInput">
+							<label class="w-100">수업 종료</label><input type="time" class="form-control" id="endTimeInput">
 						</div>
 						<div class="mt-2">
 							<div>수업 장소</div>

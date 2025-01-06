@@ -13,6 +13,7 @@ public class LectureDTO {
 	private String professorName;
 	private String classRoom;
 	private int credit;
+	private String day;
 	private String startTime;
 	private String endTime;
 	
