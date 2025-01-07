@@ -41,26 +41,6 @@ public class TimetableService {
 		}
 	}
 	
-	public List<TimetableDTO> getTimetableList(int userId) {
-		List<Timetable> timetableList = timetableRepository.findByUserIdOrderByTermDesc(userId);
-		
-		List<TimetableDTO> tableList = new ArrayList<>();
-		for(Timetable timetable:timetableList) {
-			List<LectureDTO> lectureList = lectureService.getLectureList(timetable.getId());
-			
-			TimetableDTO table = TimetableDTO.builder()
-			.timetableId(timetable.getId())
-			.userId(timetable.getUserId())
-			.timetableName(timetable.getTimetableName())
-			.lectureList(lectureList)
-			.build();
-			
-			tableList.add(table);
-		}
-		
-		return tableList;
-	}
-	
 	public boolean deleteTimetable(int id, int userId) {
 		Optional<Timetable> optionalTimetable = timetableRepository.findById(id);
 		
@@ -80,6 +60,26 @@ public class TimetableService {
 		} else {
 			return false;
 		}
+	}
+	
+	public List<TimetableDTO> getTimetableList(int userId, int id) {
+		List<Timetable> timetableList = timetableRepository.findByUserIdOrderByTermDesc(userId);
+		
+		List<TimetableDTO> tableList = new ArrayList<>();
+		for(Timetable timetable:timetableList) {
+			List<LectureDTO> lectureList = lectureService.getLectureList(id);
+			
+			TimetableDTO table = TimetableDTO.builder()
+					.timetableId(timetable.getId())
+					.userId(timetable.getUserId())
+					.timetableName(timetable.getTimetableName())
+					.lectureList(lectureList)
+					.build();
+			
+			tableList.add(table);
+		}
+		
+		return tableList;
 	}
 	
 }

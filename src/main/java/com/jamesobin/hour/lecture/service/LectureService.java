@@ -48,6 +48,11 @@ public class LectureService {
 		}
 	}
 	
+	public void deleteLectureByTimetableId(int timetableId) {
+		lectureRepository.deleteByTimetableId(timetableId);
+	}
+
+	
 	public List<LectureDTO> getLectureList(int timetableId) {
 		List<Lecture> lectureList = lectureRepository.findByTimetableId(timetableId);
 		
@@ -72,8 +77,4 @@ public class LectureService {
 		return lectureDTOList;
 	}
 	
-	public void deleteLectureByTimetableId(int timetableId) {
-		lectureRepository.deleteByTimetableId(timetableId);
-	}
-
 }
