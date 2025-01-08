@@ -2,7 +2,7 @@ package com.jamesobin.hour.timetable.dto;
 
 import java.util.List;
 
-import com.jamesobin.hour.lecture.dto.LectureDTO;
+import com.jamesobin.hour.lecture.dto.PeriodDTO;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +15,6 @@ public class TimetableDTO {
 	private int userId;
 	private String timetableName;
 	
-	List<LectureDTO> lectureList;
+	List<PeriodDTO> periodDTOList;
 	
 }

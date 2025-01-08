@@ -6,8 +6,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.jamesobin.hour.lecture.dto.LectureDTO;
+import com.jamesobin.hour.lecture.dto.PeriodDTO;
 import com.jamesobin.hour.lecture.service.LectureService;
+import com.jamesobin.hour.lecture.service.PeriodDTOService;
 import com.jamesobin.hour.timetable.domain.Timetable;
 import com.jamesobin.hour.timetable.dto.TimetableDTO;
 import com.jamesobin.hour.timetable.repository.TimetableRepository;
@@ -17,10 +18,14 @@ public class TimetableService {
 	
 	private TimetableRepository timetableRepository;
 	private LectureService lectureService;
+	private PeriodDTOService periodDTOService;
 	
-	public TimetableService(TimetableRepository timetableRepository, LectureService lectureService) {
+	public TimetableService(TimetableRepository timetableRepository
+			, LectureService lectureService
+			, PeriodDTOService periodDTOService) {
 		this.timetableRepository = timetableRepository;
 		this.lectureService = lectureService;
+		this.periodDTOService = periodDTOService;
 	}
 
 	public boolean addTimetable(
@@ -67,13 +72,13 @@ public class TimetableService {
 		
 		List<TimetableDTO> tableList = new ArrayList<>();
 		for(Timetable timetable:timetableList) {
-			List<LectureDTO> lectureList = lectureService.getLectureList(id);
+			List<PeriodDTO> periodDTOList = periodDTOService.getPeriodList(id);
 			
 			TimetableDTO table = TimetableDTO.builder()
 					.timetableId(timetable.getId())
 					.userId(timetable.getUserId())
 					.timetableName(timetable.getTimetableName())
-					.lectureList(lectureList)
+					.periodDTOList(periodDTOList)
 					.build();
 			
 			tableList.add(table);
