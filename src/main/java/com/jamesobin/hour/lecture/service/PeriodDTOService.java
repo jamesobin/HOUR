@@ -1,6 +1,7 @@
 package com.jamesobin.hour.lecture.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -22,13 +23,13 @@ public class PeriodDTOService {
 	public List<PeriodDTO> getPeriodList(int timetableId) {
 		List<Lecture> lectureList = lectureRepository.findByTimetableId(timetableId);
 		
-		List<LectureDTO> firstPeriodlectureDTOList = new ArrayList<>();
-		List<LectureDTO> secondPeriodlectureDTOList = new ArrayList<>();
-		List<LectureDTO> thirdPeriodlectureDTOList = new ArrayList<>();
-		List<LectureDTO> fourthPeriodlectureDTOList = new ArrayList<>();
-		List<LectureDTO> fifthPeriodlectureDTOList = new ArrayList<>();
-		List<LectureDTO> sixthPeriodlectureDTOList = new ArrayList<>();
-		List<LectureDTO> seventhPeriodlectureDTOList = new ArrayList<>();
+		List<LectureDTO> firstPeriodlectureDTOList = new ArrayList<>(Collections.nCopies(5, null));
+		List<LectureDTO> secondPeriodlectureDTOList = new ArrayList<>(Collections.nCopies(5, null));
+		List<LectureDTO> thirdPeriodlectureDTOList = new ArrayList<>(Collections.nCopies(5, null));
+		List<LectureDTO> fourthPeriodlectureDTOList = new ArrayList<>(Collections.nCopies(5, null));
+		List<LectureDTO> fifthPeriodlectureDTOList = new ArrayList<>(Collections.nCopies(5, null));
+		List<LectureDTO> sixthPeriodlectureDTOList = new ArrayList<>(Collections.nCopies(5, null));
+		List<LectureDTO> seventhPeriodlectureDTOList = new ArrayList<>(Collections.nCopies(5, null));
 		
 		List<PeriodDTO> periodDTOList = new ArrayList<>();
 
@@ -46,8 +47,18 @@ public class PeriodDTOService {
 						.endTime(lecture.getEndTime())
 						.build();
 				
-				firstPeriodlectureDTOList.add(firstLectureDTO);
-			} 			
+				if(firstLectureDTO.getDay().equals("월")) {
+					firstPeriodlectureDTOList.set(0, firstLectureDTO);
+				} else if(firstLectureDTO.getDay().equals("화")) {
+					firstPeriodlectureDTOList.set(1, firstLectureDTO);
+				} else if(firstLectureDTO.getDay().equals("수")) {
+					firstPeriodlectureDTOList.set(2, firstLectureDTO);
+				} else if(firstLectureDTO.getDay().equals("목")) {
+					firstPeriodlectureDTOList.set(3, firstLectureDTO);
+				} else if(firstLectureDTO.getDay().equals("금")) {
+					firstPeriodlectureDTOList.set(4, firstLectureDTO);
+				}
+			} 	
 			if(lecture.getStartTime().equals("10:30") || lecture.getEndTime().equals("12:00")) {
 				LectureDTO secondLectureDTO = LectureDTO.builder()
 						.lectureId(lecture.getId())
@@ -61,7 +72,17 @@ public class PeriodDTOService {
 						.endTime(lecture.getEndTime())
 						.build();
 				
-				secondPeriodlectureDTOList.add(secondLectureDTO);
+				if(secondLectureDTO.getDay().equals("월")) {
+					secondPeriodlectureDTOList.set(0, secondLectureDTO);
+				} else if(secondLectureDTO.getDay().equals("화")) {
+					secondPeriodlectureDTOList.set(1, secondLectureDTO);
+				} else if(secondLectureDTO.getDay().equals("수")) {
+					secondPeriodlectureDTOList.set(2, secondLectureDTO);
+				} else if(secondLectureDTO.getDay().equals("목")) {
+					secondPeriodlectureDTOList.set(3, secondLectureDTO);
+				} else if(secondLectureDTO.getDay().equals("금")) {
+					secondPeriodlectureDTOList.set(4, secondLectureDTO);
+				}
 			}
 			if(lecture.getStartTime().equals("12:00") || lecture.getEndTime().equals("13:30")) {
 				LectureDTO thirdLectureDTO = LectureDTO.builder()
@@ -76,7 +97,17 @@ public class PeriodDTOService {
 						.endTime(lecture.getEndTime())
 						.build();
 				
-				thirdPeriodlectureDTOList.add(thirdLectureDTO);
+				if(thirdLectureDTO.getDay().equals("월")) {
+					thirdPeriodlectureDTOList.set(0, thirdLectureDTO);
+				} else if(thirdLectureDTO.getDay().equals("화")) {
+					thirdPeriodlectureDTOList.set(1, thirdLectureDTO);
+				} else if(thirdLectureDTO.getDay().equals("수")) {
+					thirdPeriodlectureDTOList.set(2, thirdLectureDTO);
+				} else if(thirdLectureDTO.getDay().equals("목")) {
+					thirdPeriodlectureDTOList.set(3, thirdLectureDTO);
+				} else if(thirdLectureDTO.getDay().equals("금")) {
+					thirdPeriodlectureDTOList.set(4, thirdLectureDTO);
+				}
 			}
 			if(lecture.getStartTime().equals("13:30") || lecture.getEndTime().equals("15:00")) {
 				LectureDTO fourthLectureDTO = LectureDTO.builder()
@@ -91,7 +122,17 @@ public class PeriodDTOService {
 						.endTime(lecture.getEndTime())
 						.build();
 				
-				fourthPeriodlectureDTOList.add(fourthLectureDTO);
+				if(fourthLectureDTO.getDay().equals("월")) {
+					fourthPeriodlectureDTOList.set(0, fourthLectureDTO);
+				} else if(fourthLectureDTO.getDay().equals("화")) {
+					fourthPeriodlectureDTOList.set(1, fourthLectureDTO);
+				} else if(fourthLectureDTO.getDay().equals("수")) {
+					fourthPeriodlectureDTOList.set(2, fourthLectureDTO);
+				} else if(fourthLectureDTO.getDay().equals("목")) {
+					fourthPeriodlectureDTOList.set(3, fourthLectureDTO);
+				} else if(fourthLectureDTO.getDay().equals("금")) {
+					fourthPeriodlectureDTOList.set(4, fourthLectureDTO);
+				}
 			}
 			if(lecture.getStartTime().equals("15:00") || lecture.getEndTime().equals("16:30")) {
 				LectureDTO fifthLectureDTO = LectureDTO.builder()
@@ -106,7 +147,17 @@ public class PeriodDTOService {
 						.endTime(lecture.getEndTime())
 						.build();
 				
-				fifthPeriodlectureDTOList.add(fifthLectureDTO);
+				if(fifthLectureDTO.getDay().equals("월")) {
+					fifthPeriodlectureDTOList.set(0, fifthLectureDTO);
+				} else if(fifthLectureDTO.getDay().equals("화")) {
+					fifthPeriodlectureDTOList.set(1, fifthLectureDTO);
+				} else if(fifthLectureDTO.getDay().equals("수")) {
+					fifthPeriodlectureDTOList.set(2, fifthLectureDTO);
+				} else if(fifthLectureDTO.getDay().equals("목")) {
+					fifthPeriodlectureDTOList.set(3, fifthLectureDTO);
+				} else if(fifthLectureDTO.getDay().equals("금")) {
+					fifthPeriodlectureDTOList.set(4, fifthLectureDTO);
+				}
 			}
 			if(lecture.getStartTime().equals("16:30") || lecture.getEndTime().equals("18:00")) {
 				LectureDTO sixthLectureDTO = LectureDTO.builder()
@@ -121,7 +172,17 @@ public class PeriodDTOService {
 						.endTime(lecture.getEndTime())
 						.build();
 				
-				sixthPeriodlectureDTOList.add(sixthLectureDTO);
+				if(sixthLectureDTO.getDay().equals("월")) {
+					sixthPeriodlectureDTOList.set(0, sixthLectureDTO);
+				} else if(sixthLectureDTO.getDay().equals("화")) {
+					sixthPeriodlectureDTOList.set(1, sixthLectureDTO);
+				} else if(sixthLectureDTO.getDay().equals("수")) {
+					sixthPeriodlectureDTOList.set(2, sixthLectureDTO);
+				} else if(sixthLectureDTO.getDay().equals("목")) {
+					sixthPeriodlectureDTOList.set(3, sixthLectureDTO);
+				} else if(sixthLectureDTO.getDay().equals("금")) {
+					sixthPeriodlectureDTOList.set(4, sixthLectureDTO);
+				}
 			}
 			if(lecture.getStartTime().equals("18:00") || lecture.getEndTime().equals("19:30")) {
 				LectureDTO seventhLectureDTO = LectureDTO.builder()
@@ -136,7 +197,17 @@ public class PeriodDTOService {
 						.endTime(lecture.getEndTime())
 						.build();
 				
-				seventhPeriodlectureDTOList.add(seventhLectureDTO);
+				if(seventhLectureDTO.getDay().equals("월")) {
+					seventhPeriodlectureDTOList.set(0, seventhLectureDTO);
+				} else if(seventhLectureDTO.getDay().equals("화")) {
+					seventhPeriodlectureDTOList.set(1, seventhLectureDTO);
+				} else if(seventhLectureDTO.getDay().equals("수")) {
+					seventhPeriodlectureDTOList.set(2, seventhLectureDTO);
+				} else if(seventhLectureDTO.getDay().equals("목")) {
+					seventhPeriodlectureDTOList.set(3, seventhLectureDTO);
+				} else if(seventhLectureDTO.getDay().equals("금")) {
+					seventhPeriodlectureDTOList.set(4, seventhLectureDTO);
+				}
 			}
 		}
 		
