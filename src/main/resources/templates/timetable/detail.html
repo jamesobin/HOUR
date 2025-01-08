@@ -33,62 +33,27 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th>1교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>2교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>3교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>4교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>5교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>6교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
-							<th>7교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+						<th:block th:each="timetable:${tableList}">
+							<th:block th:each="period:${timetable.periodDTOList}">
+								<tr>
+									<th th:text="${period.period}">1교시</th>
+									<th:block th:each="lecture:${period.lectureList}">
+										<td>
+											<th:block th:if="${lecture} == null">
+												<div></div>
+											</th:block>
+											<th:block th:unless="${lecture} == null">
+												<div th:text="${lecture.lectureName}" class="font-weight-bold">강의명</div>
+												<div class="d-flex align-items-end">
+													<div th:text="${lecture.professorName}" class="font-weight-bold">교수명</div>
+													<div th:text="${lecture.classRoom}" class="small-text ml-2">강의실</div>
+												</div>
+											</th:block>
+										</td>
+									</th:block>
+								</tr>
+							</th:block>
+						</th:block>
 					</tbody>
 				</table>
 			</div>

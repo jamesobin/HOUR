@@ -8,6 +8,6 @@ import com.jamesobin.hour.timetable.domain.Timetable;
 
 public interface TimetableRepository extends JpaRepository<Timetable, Integer> {
 	
-	public List<Timetable> findByUserIdOrderByTermDesc(int userId);
+	public List<Timetable> findByUserIdAndIdOrderByTermDesc(int userId, int id);
 	
 }

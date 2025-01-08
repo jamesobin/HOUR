@@ -67,12 +67,12 @@ public class TimetableService {
 		}
 	}
 	
-	public List<TimetableDTO> getTimetableList(int userId, int id) {
-		List<Timetable> timetableList = timetableRepository.findByUserIdOrderByTermDesc(userId);
+	public List<TimetableDTO> getTimetableList(int userId, int timetableId) {
+		List<Timetable> timetableList = timetableRepository.findByUserIdAndIdOrderByTermDesc(userId, timetableId);
 		
 		List<TimetableDTO> tableList = new ArrayList<>();
 		for(Timetable timetable:timetableList) {
-			List<PeriodDTO> periodDTOList = periodDTOService.getPeriodList(id);
+			List<PeriodDTO> periodDTOList = periodDTOService.getPeriodList(timetableId);
 			
 			TimetableDTO table = TimetableDTO.builder()
 					.timetableId(timetable.getId())
