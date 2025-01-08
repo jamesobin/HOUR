@@ -10,4 +10,6 @@ public interface TimetableRepository extends JpaRepository<Timetable, Integer> {
 	
 	public List<Timetable> findByUserIdAndIdOrderByTermDesc(int userId, int id);
 	
+	public List<Timetable> findByUserIdOrderByTermDesc(int userId);
+	
 }

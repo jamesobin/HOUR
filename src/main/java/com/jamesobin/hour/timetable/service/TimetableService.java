@@ -67,7 +67,7 @@ public class TimetableService {
 		}
 	}
 	
-	public List<TimetableDTO> getTimetableList(int userId, int timetableId) {
+	public List<TimetableDTO> getTimetable(int userId, int timetableId) {
 		List<Timetable> timetableList = timetableRepository.findByUserIdAndIdOrderByTermDesc(userId, timetableId);
 		
 		List<TimetableDTO> tableList = new ArrayList<>();
@@ -85,6 +85,12 @@ public class TimetableService {
 		}
 		
 		return tableList;
+	}
+	
+	public List<Timetable> getTimetableList(int userId) {
+		List<Timetable> allTimetableList = timetableRepository.findByUserIdOrderByTermDesc(userId);
+		
+		return allTimetableList;
 	}
 	
 }
