@@ -93,14 +93,6 @@
 							<td></td>
 							<td></td>
 						</tr>
-						<tr>
-							<th>8교시</th>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -135,7 +127,7 @@
 					, contentType:false
 					, success:function(response) {
 						if(response.result == "success") {
-							location.href = "/timetable/lecture/input-view";
+							location.href="/timetable/lecture/input-view?id=" + response.id;	
 						} else {
 							alert("시간표 생성 실패!");
 						}

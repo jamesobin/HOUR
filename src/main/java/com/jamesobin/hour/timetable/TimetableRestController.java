@@ -23,18 +23,21 @@ public class TimetableRestController {
 	}
 	
 	@PostMapping("/create")
-	public Map<String, String> createTimetable(
+	public Map<String, Object> createTimetable(
 			@RequestParam("term") int term
 			, @RequestParam("timetableName") String timetableName
 			, HttpSession session) {
 		int userId = (Integer)session.getAttribute("userId");
 		
-		Map<String, String> resultMap = new HashMap<>();
+		Object result = timetableService.addTimetable(userId, term, timetableName);
 		
-		if(timetableService.addTimetable(userId, term, timetableName)) {
-			resultMap.put("result", "success");
-		} else {
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		if(result == "false") {
 			resultMap.put("result", "fail");
+		} else {
+			resultMap.put("result", "success");
+			resultMap.put("id", result);
 		}
 		
 		return resultMap;

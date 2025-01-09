@@ -28,7 +28,7 @@ public class TimetableService {
 		this.periodDTOService = periodDTOService;
 	}
 
-	public boolean addTimetable(
+	public Object addTimetable(
 			int userId
 			, int term
 			, String timetableName) {
@@ -40,7 +40,7 @@ public class TimetableService {
 		
 		try {			
 			timetableRepository.save(timetable);
-			return true;
+			return timetable.getId();
 		} catch(Exception e) {
 			return false;
 		}
@@ -88,7 +88,7 @@ public class TimetableService {
 	}
 	
 	public List<Timetable> getTimetableList(int userId) {
-		List<Timetable> allTimetableList = timetableRepository.findByUserIdOrderByTermDesc(userId);
+		List<Timetable> allTimetableList = timetableRepository.findByUserIdOrderByCreatedAtDesc(userId);
 		
 		return allTimetableList;
 	}

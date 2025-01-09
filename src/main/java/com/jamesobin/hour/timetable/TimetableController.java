@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jamesobin.hour.timetable.domain.Timetable;
 import com.jamesobin.hour.timetable.dto.TimetableDTO;
@@ -52,17 +51,6 @@ public class TimetableController {
 	@GetMapping("/input-view")
 	public String addTimetable() {
 		return "timetable/input";
-	}
-	
-	@ResponseBody
-	@GetMapping("/list")
-	public List<TimetableDTO> timetableList(Model model, HttpSession session, @RequestParam("id") int timetableId) {
-		int userId = (Integer)session.getAttribute("userId");
-		List<TimetableDTO> tableList = timetableService.getTimetable(userId, timetableId);
-		
-		model.addAttribute("tableList", tableList);
-		
-		return tableList;
 	}
 	
 }
