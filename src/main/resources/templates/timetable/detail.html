@@ -21,7 +21,7 @@
 					</div>
 				</div>
 				<button type="button" class="btn btn-block btn-dark mt-3" onclick = "location.href='/timetable/input-view'">+새 시간표 만들기</button>
-				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='/timetable/lecture/input-view'">시간표 수정</button>
+				<button type="button" class="btn btn-block btn-dark" id="updateBtn">시간표 수정</button>
 				<button type="button" class="btn btn-block btn-dark" id="deleteBtn">시간표 삭제</button>
 			</aside>
 			<div class="main-contents col-10 d-flex justify-content-center">
@@ -64,6 +64,12 @@
 		</section>
 	<script layout:fragment="script">
 		$(document).ready(function() {
+			$("#updateBtn").on("click", function() {
+				let id = $("#timetableSelect option:selected").val();
+				
+				location.href="/timetable/lecture/input-view?id=" + id;
+			});
+			
 			$("#timetableSelect").on("change", function() {
 				let id = $("#timetableSelect option:selected").val();
 				

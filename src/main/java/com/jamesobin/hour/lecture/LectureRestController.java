@@ -3,7 +3,9 @@ package com.jamesobin.hour.lecture;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,6 +40,49 @@ public class LectureRestController {
 		Map<String, String> resultMap = new HashMap<>();
 		
 		if(lectureService.addLecture(userId, timetableId, lectureName, professorName, credit, day, startTime, endTime, classRoom)) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	
+	@DeleteMapping("/delete")
+	public Map<String, String> deleteLecture(
+			@RequestParam("id") int id
+			, HttpSession session) {
+		int userId = (Integer)session.getAttribute("userId");
+		
+		Map<String, String> resultMap = new HashMap<>();
+		if(lectureService.deleteLecture(id, userId)) {
+			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	
+	@PutMapping("/update")
+	public Map<String, String> updateMemo(
+			@RequestParam("id") int id
+			, @RequestParam("lectureName") String lectureName
+			, @RequestParam("professorName") String professorName
+			, @RequestParam("credit") int credit
+			, @RequestParam("day") String day
+			, @RequestParam("startTime") String startTime
+			, @RequestParam("endTime") String endTime
+			, @RequestParam("classRoom") String classRoom) {
+		Map<String, String> resultMap = new HashMap<>();
+		if(lectureService.updateLecture(id
+				, lectureName
+				, professorName
+				, credit
+				, day
+				, startTime
+				, endTime
+				, classRoom)) {
 			resultMap.put("result", "success");
 		} else {
 			resultMap.put("result", "fail");

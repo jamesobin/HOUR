@@ -2,6 +2,7 @@ package com.jamesobin.hour.lecture.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -75,6 +76,59 @@ public class LectureService {
 		}
 		
 		return lectureDTOList;
+	}
+	
+	public boolean deleteLecture(int id, int userId) {
+		Optional<Lecture> optionalLecture = lectureRepository.findById(id);
+		
+		if(optionalLecture.isPresent()) {
+			Lecture lecture = optionalLecture.get();
+			
+			if(lecture.getUserId() == userId) {
+				lectureRepository.delete(lecture);
+				
+				return true;				
+			} else {
+				return false;
+			}
+			
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean updateLecture(int id
+			, String lectureName
+			, String professorName
+			, int credit
+			, String day
+			, String startTime
+			, String endTime
+			, String classRoom) {
+		Optional<Lecture> optionalLecture = lectureRepository.findById(id);
+		
+		if(optionalLecture.isPresent()) {
+			Lecture lecture = optionalLecture.get();
+			
+			lecture = lecture.toBuilder()
+					.lectureName(lectureName)
+					.professorName(professorName)
+					.credit(credit)
+					.day(day)
+					.startTime(startTime)
+					.endTime(endTime)
+					.classRoom(classRoom)
+					.build();
+			
+			try {
+				lectureRepository.save(lecture);
+				return true;
+			} catch(Exception e) {
+				return false;
+			}
+		} else {
+			return false;
+		}
 	}
 	
 }

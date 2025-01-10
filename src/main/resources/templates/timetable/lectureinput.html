@@ -84,15 +84,76 @@
 								<tr>
 									<th th:text="${period.period}">1교시</th>
 									<th:block th:each="lecture:${period.lectureList}">
-										<td>
+										<td valign="top" class="py-0">
 											<th:block th:if="${lecture} == null">
 												<div></div>
 											</th:block>
 											<th:block th:unless="${lecture} == null">
-												<div th:text="${lecture.lectureName}" class="font-weight-bold">강의명</div>
+												<div class="d-flex justify-content-end">
+													<label>
+														<i class="bi bi-pencil-square mr-2"></i>
+														<button type="button" th:data-lecture-id="${lecture.lectureId}" hidden class="update-btn" data-toggle="modal" data-target="#updateModal"></button>
+													</label>
+													<label>
+														<i class="bi bi-x-lg"></i>
+														<button type="button" th:data-lecture-id="${lecture.lectureId}" hidden class="lecture-delete-btn"></button>
+													</label>
+												</div>
+												<div th:text="${lecture.lectureName}" class="font-weight-bold pt-2">강의명</div>
 												<div class="d-flex align-items-end">
 													<div th:text="${lecture.professorName}" class="font-weight-bold">교수명</div>
 													<div th:text="${lecture.classRoom}" class="small-text ml-2">강의실</div>
+												</div>
+												<!-- UpdateModal -->
+												<div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+													<div class="modal-dialog modal-dialog-centered" role="document">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5>수업 수정</h5>
+															</div>	
+															<div class="modal-body">
+																<label>강의명</label><input type="text" class="form-control" id="lectureNameUpdate" th:value="${lecture.lectureName}">
+																<label class="mt-2">교수명</label><input type="text" class="form-control" id="professorNameUpdate" th:value="${lecture.professorName}">
+																<label class="mt-2">이수 학점</label>
+																<select id="creditUpdate">
+																	<th:block th:each="value:${#numbers.sequence(0, 9)}">
+																		<option th:value="${value}" th:text="${value}"></option>
+																		<th:block th:if="${lecture.credit} == ${value}">
+																			<option th:value="${value}" th:text="${value}" selected></option>
+																		</th:block>
+																	</th:block>
+																</select>
+																<label class="mt-2">시간/장소</label>
+																<div class="border border-dark p-2">
+																	<div class="d-flex justify-content-between">
+																		<input type="radio" class="day-update-btn d-none" id="mon-update-btn" autocomplete="off" name="updateDay" value="월">
+																		<label class="btn btn-sm btn-secondary" for="mon-update-btn">월</label>
+																		<input type="radio" class="day-update-btn d-none" id="tue-update-btn" autocomplete="off" name="updateDay" value="화">
+																		<label class="btn btn-sm btn-secondary" for="tue-update-btn">화</label>
+																		<input type="radio" class="day-update-btn d-none" id="wed-update-btn" autocomplete="off" name="updateDay" value="수">
+																		<label class="btn btn-sm btn-secondary" for="wed-update-btn">수</label>
+																		<input type="radio" class="day-update-btn d-none" id="thu-update-btn" autocomplete="off" name="updateDay" value="목">
+																		<label class="btn btn-sm btn-secondary" for="thu-update-btn">목</label>
+																		<input type="radio" class="day-update-btn d-none" id="fri-update-btn" autocomplete="off" name="updateDay" value="금">
+																		<label class="btn btn-sm btn-secondary" for="fri-update-btn">금</label>
+																	</div>
+																	<div class="mt-2 d-flex align-items-end">
+																		<label class="w-100">수업 시작</label><input type="time" class="form-control" id="startTimeUpdate" th:value="${lecture.startTime}">
+																	</div>
+																	<div class="mt-2 d-flex align-items-end">
+																		<label class="w-100">수업 종료</label><input type="time" class="form-control" id="endTimeUpdate" th:value="${lecture.endTime}">
+																	</div>
+																	<div class="mt-2">
+																		<div>수업 장소</div>
+																		<input type="text" class="form-control mt-2" id="classRoomUpdate" th:value="${lecture.classRoom}">
+																	</div>
+																</div>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="lecture-update-btn btn btn-block btn-dark">수정하기</button>
+															</div>
+														</div>
+													</div>
 												</div>
 											</th:block>
 										</td>
@@ -103,10 +164,123 @@
 					</tbody>
 				</table>
 			</div>
+
+			<!-- UpdateModal -->
+			<div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5>수업 수정</h5>
+						</div>	
+						<div class="modal-body">
+							<label class="mt-2">강의명</label><input type="text" class="form-control" id="lectureNameUpdate">
+							<label class="mt-2">교수명</label><input type="text" class="form-control" id="professorNameUpdate">
+							<label class="mt-2">이수 학점</label>
+							<select id="creditUpdate">
+								<option selected></option>
+								<option value="0">0</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+							</select>
+							<label class="mt-2">시간/장소</label>
+							<div class="border border-dark p-2">
+								<div class="d-flex justify-content-between">
+									<input type="radio" class="day-update-btn d-none" id="mon-update-btn" autocomplete="off" name="updateDay" value="월">
+									<label class="btn btn-sm btn-secondary" for="mon-update-btn">월</label>
+									<input type="radio" class="day-update-btn d-none" id="tue-update-btn" autocomplete="off" name="updateDay" value="화">
+									<label class="btn btn-sm btn-secondary" for="tue-update-btn">화</label>
+									<input type="radio" class="day-update-btn d-none" id="wed-update-btn" autocomplete="off" name="updateDay" value="수">
+									<label class="btn btn-sm btn-secondary" for="wed-update-btn">수</label>
+									<input type="radio" class="day-update-btn d-none" id="thu-update-btn" autocomplete="off" name="updateDay" value="목">
+									<label class="btn btn-sm btn-secondary" for="thu-update-btn">목</label>
+									<input type="radio" class="day-update-btn d-none" id="fri-update-btn" autocomplete="off" name="updateDay" value="금">
+									<label class="btn btn-sm btn-secondary" for="fri-update-btn">금</label>
+								</div>
+								<div class="mt-2 d-flex align-items-end">
+									<label class="w-100">수업 시작</label><input type="time" class="form-control" id="startTimeUpdate">
+								</div>
+								<div class="mt-2 d-flex align-items-end">
+									<label class="w-100">수업 종료</label><input type="time" class="form-control" id="endTimeUpdate">
+								</div>
+								<div class="mt-2">
+									<div>수업 장소</div>
+									<input type="text" class="form-control mt-2" id="classRoomUpdate">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="lecture-update-btn btn btn-block btn-dark">수정하기</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</section>
 		
 	<script layout:fragment="script">
 		$(document).ready(function() {
+			$(".lecture-update-btn").on("click", function() {
+				let lectureId = $(".update-btn").data("lecture-id");
+				
+				let lectureName = $("#lectureNameUpdate").val();
+				let professorName = $("#professorNameUpdate").val();
+				let credit = $("#creditUpdate option:selected").val();
+				let day = $("input[name='updateDay']:checked").val();
+				let startTime = $("#startTimeUpdate").val();
+				let endTime = $("#endTimeUpdate").val();
+				let classRoom = $("#classRoomUpdate").val();
+				
+				$.ajax({
+					type:"put"
+					, url:"/lecture/update"
+					, data:{"id":lectureId
+						, "lectureName":lectureName
+						, "professorName":professorName
+						, "credit":credit
+						, "day":day
+						, "startTime":startTime
+						, "endTime":endTime
+						, "classRoom":classRoom}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.reload();
+						} else {
+							alert("수정 실패");
+						}
+					}
+					, error:function() {
+						alert("수정 에러!");
+					}
+				});
+			});
+			
+			$(".lecture-delete-btn").on("click", function() {
+				let lectureId = $(this).data("lecture-id");
+				let id = $("#timetableSelect option:selected").val();
+
+				$.ajax({
+					type:"delete"
+					, url:"/lecture/delete"
+					, data:{"id":lectureId}
+					, success:function(response) {
+						if(response.result == "success") {
+							location.href="/timetable/lecture/input-view?id=" + id;
+						} else {
+							alert("삭제 실패!");
+						}
+					}
+					, error:function() {
+						alert("삭제 에러!");
+					}
+				});
+			});
+			
 			$("#deleteBtn").on("click", function() {
 				let id = $("#timetableSelect option:selected").val();
 				
