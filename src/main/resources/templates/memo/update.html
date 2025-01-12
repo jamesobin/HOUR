@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/default}">
+    
+		<section layout:fragment="contents" class="contents d-flex mt-4">
+			<aside class="side-menu col-2">
+				<button type="button" class="btn btn-block btn-dark">캘린더</button>
+				<button type="button" class="btn btn-block btn-dark" onclick="location.href='/memo/list-view'">메모장</button>
+			</aside>
+			<div class="main-contents col-10 px-5">
+				<div class="d-flex">
+					<div class="col-3 p-0 mr-5">
+						<div class="mb-2">시간표</div>
+						<select id="timetableSelect">
+							<option th:selected="${selectedId == null}" value="">시간표 선택</option>
+							<th:block th:each="timetable:${allTimetableList}">
+								<option th:value="${timetable.id}" th:text="${timetable.timetableName}" th:selected="${selectedId == timetable.id}">시간표 이름</option>
+							</th:block>
+						</select>
+					</div>
+					<div class="col-3 p-0">
+						<div class="mb-2">수업명</div>
+						<select id="lectureSelect">
+							<option>수업 선택</option>
+						</select>
+					</div>
+				</div>
+				<div class="title-input-group mt-5 d-flex align-items-center">
+					<div class="title-input-label p-0">제목</div>
+					<input type="text" class="form-control" placeholder="제목을 입력하세요." id="titleInput" th:value="${memo.title}">
+				</div>
+				<div class="mt-4">
+			        <textarea id="contentsInput" name="contentsInput" th:value="${memo.contents}"></textarea>
+			    </div>
+			    <div class="d-flex justify-content-end">
+				    <button type="button" class="btn btn-block btn-dark mt-3 col-1" id="saveBtn">저장</button>
+			    </div>
+			</div>
+		</section>
+		
+		<script layout:fragment="script">
+			$(document).ready(function() {
+				/* $("#saveBtn").on("click", function() {
+					let lectureId = $("#lectureSelect option:selected").val();
+	    			let title = $("#titleInput").val();
+	    			let contents = $("#contentsInput").val();
+	    			let file = $("#fileInput")[0].files[0];
+	    			
+	    			if(title == "") {
+	    				alert("제목을 입력하세요");
+	    				return ;
+	    			}
+	    			
+	    			if(contents == "") {
+	    				alert("내용을 입력하세요");
+	    				return ;
+	    			}
+	    			
+	    			let formData = new FormData();
+	    			formData.append("lectureId", lectureId);
+	    			formData.append("title", title);
+	    			formData.append("contents", contents);
+	    			formData.append("imageFile", file);
+	    			
+	    			$.ajax({
+	    				type:"post"
+	    				, url:"/memo/create"
+	    				, data:formData
+	    				, enctype:"multipart/form-data"  // 파일 업로드 추가 옵션
+	    				, processData:false // 파일 업로드 추가 옵션
+	    				, contentType:false // 파일 업로드 추가 옵션
+	    				, success:function(response) {
+	    					if(response.result == "success") {
+	    						location.href = "/memo/list-view";
+	    					} else {
+	    						alert("작성 실패");
+	    					}
+	    				}
+	    				, error:function() {
+	    					alert("작성 에러!")
+	    				}
+	    			});
+	    		}); */
+				
+			    $("#contentsInput").summernote({
+			    	height: 500,
+			        placeholder: "내용을 입력해주세요",
+		        	focus: true,  
+		            lang: 'ko-KR', 
+		            toolbar: [
+		                ['style', ['style']],
+		                ['fontsize', ['fontsize']],
+		                ['fontName', ['fontname']],
+		                ['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']],
+		                ['color', ['forecolor', 'backcolor']],
+		                ['para', ['ul', 'ol', 'paragraph']],
+		                ['height', ['height']],
+		                ['table', ['table']],
+		                ['insert', ['picture']],
+		                ['view', ['fullscreen', 'codeview', 'help']]
+		            ]
+			    });
+			});
+		</script>

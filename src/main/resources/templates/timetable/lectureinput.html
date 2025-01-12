@@ -99,7 +99,7 @@
 														<button type="button" th:data-lecture-id="${lecture.lectureId}" hidden class="lecture-delete-btn"></button>
 													</label>
 												</div>
-												<div th:text="${lecture.lectureName}" class="font-weight-bold pt-2">강의명</div>
+												<div th:text="${lecture.lectureName}" class="font-weight-bold pt-1">강의명</div>
 												<div class="d-flex align-items-end">
 													<div th:text="${lecture.professorName}" class="font-weight-bold">교수명</div>
 													<div th:text="${lecture.classRoom}" class="small-text ml-2">강의실</div>
@@ -163,63 +163,6 @@
 						</th:block>
 					</tbody>
 				</table>
-			</div>
-
-			<!-- UpdateModal -->
-			<div class="modal fade" id="updateModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog modal-dialog-centered" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5>수업 수정</h5>
-						</div>	
-						<div class="modal-body">
-							<label class="mt-2">강의명</label><input type="text" class="form-control" id="lectureNameUpdate">
-							<label class="mt-2">교수명</label><input type="text" class="form-control" id="professorNameUpdate">
-							<label class="mt-2">이수 학점</label>
-							<select id="creditUpdate">
-								<option selected></option>
-								<option value="0">0</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-							</select>
-							<label class="mt-2">시간/장소</label>
-							<div class="border border-dark p-2">
-								<div class="d-flex justify-content-between">
-									<input type="radio" class="day-update-btn d-none" id="mon-update-btn" autocomplete="off" name="updateDay" value="월">
-									<label class="btn btn-sm btn-secondary" for="mon-update-btn">월</label>
-									<input type="radio" class="day-update-btn d-none" id="tue-update-btn" autocomplete="off" name="updateDay" value="화">
-									<label class="btn btn-sm btn-secondary" for="tue-update-btn">화</label>
-									<input type="radio" class="day-update-btn d-none" id="wed-update-btn" autocomplete="off" name="updateDay" value="수">
-									<label class="btn btn-sm btn-secondary" for="wed-update-btn">수</label>
-									<input type="radio" class="day-update-btn d-none" id="thu-update-btn" autocomplete="off" name="updateDay" value="목">
-									<label class="btn btn-sm btn-secondary" for="thu-update-btn">목</label>
-									<input type="radio" class="day-update-btn d-none" id="fri-update-btn" autocomplete="off" name="updateDay" value="금">
-									<label class="btn btn-sm btn-secondary" for="fri-update-btn">금</label>
-								</div>
-								<div class="mt-2 d-flex align-items-end">
-									<label class="w-100">수업 시작</label><input type="time" class="form-control" id="startTimeUpdate">
-								</div>
-								<div class="mt-2 d-flex align-items-end">
-									<label class="w-100">수업 종료</label><input type="time" class="form-control" id="endTimeUpdate">
-								</div>
-								<div class="mt-2">
-									<div>수업 장소</div>
-									<input type="text" class="form-control mt-2" id="classRoomUpdate">
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="lecture-update-btn btn btn-block btn-dark">수정하기</button>
-						</div>
-					</div>
-				</div>
 			</div>
 		</section>
 		

@@ -18,6 +18,14 @@ header > .menu {
 	height:100px;
 }
 
+.title-input-group > .title-input-label {
+	width:5%;
+}
+
+.memo-contents {
+	height:500px;
+}
+
 input[type=radio]:checked + label { 
 	background-color:#f95735;
 	border:#f95735; 

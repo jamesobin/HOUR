@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/default}">
+    
+		<section layout:fragment="contents" class="contents d-flex mt-4">
+			<aside class="side-menu col-2">
+				<button type="button" class="btn btn-block btn-dark">캘린더</button>
+				<button type="button" class="btn btn-block btn-dark" onclick="location.href='/memo/list-view'">메모장</button>
+			</aside>
+			<div class="main-contents col-10 px-5">
+				<div class="d-flex">
+					<div class="mr-2">시간표</div>
+					<div class="border border-dark rounded mr-5 col-2">2018년도 1학기</div>
+					<div class="mr-2">수업명</div>
+					<div class="border border-dark rounded col-2">건축공학개론</div>
+				</div>
+				<div class="title-input-group mt-5">
+					<h3 th:text="${memo.title}">첫번째 노트</h3>
+				</div>
+				<div class="mt-4">
+			        <div class="memo-contents border border-dark rounded p-3" th:text="${memo.contents}">첫번재 강의입니다</div>
+			    </div>
+			    <div class="d-flex justify-content-end">
+			    	<button type="button" class="btn btn-block btn-dark mt-3 col-1 mr-3" id="listBtn" onclick="location.href='/memo/list-view'">목록으로</button>
+				    <button type="button" class="btn btn-block btn-dark mt-3 col-1" id="updateBtn" th:onclick="|location.href='/memo/update-view?id=${memo.id}'|">수정하기</button>
+			    </div>
+			</div>
+		</section>
+		
+		<script layout:fragment="script">
+
+		</script>
