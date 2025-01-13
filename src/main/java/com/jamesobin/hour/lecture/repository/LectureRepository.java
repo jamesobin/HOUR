@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 public interface LectureRepository extends JpaRepository<Lecture, Integer> {
 
 	public List<Lecture> findByTimetableId(int timetableId);
+	public List<Lecture> findByUserId(int userId);
 	
 	@Transactional
 	public void deleteByTimetableId(int timetableId);

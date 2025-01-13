@@ -294,24 +294,17 @@
 					return;
 				}
 				
-				let formData = new FormData();
-				
-				formData.append("timetableId", timetableId);
-				formData.append("lectureName", lectureName);
-				formData.append("professorName", professorName);
-				formData.append("credit", credit);
-				formData.append("day", day);
-				formData.append("startTime", startTime);
-				formData.append("endTime", endTime);
-				formData.append("classRoom", classRoom);
-				
 				$.ajax({
 					type:"post"
 					, url:"/lecture/create"
-					, data:formData
-					, enctype:"multipart/form-data"
-					, processData:false
-					, contentType:false
+					, data:{"timetableId":timetableId
+						, "lectureName":lectureName
+						, "professorName":professorName
+						, "credit":credit
+						, "day":day
+						, "startTime":startTime
+						, "endTime":endTime
+						, "classRoom":classRoom}
 					, success:function(response) {
 						if(response.result == "success") {
 							location.href="/timetable/lecture/input-view?id=" + timetableId;

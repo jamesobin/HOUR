@@ -22,7 +22,7 @@
 					<option value="12">6학년 2학기</option>
 				</select>
 				<input type="text" class="form-control mt-3" placeholder="시간표 이름" id="timetableNameInput">
-				<button type="button" class="btn btn-block btn-dark mt-3" id="addLectureBtn">시간표 생성</button>
+				<button type="button" class="btn btn-block btn-dark mt-3" id="addTimetableBtn">시간표 생성</button>
 			</aside>
 			<div class="main-contents col-10 d-flex justify-content-center">
 				<table border="1" width="1300px">
@@ -100,7 +100,7 @@
 		
 	<script layout:fragment="script">
 		$(document).ready(function() {
-			$("#addLectureBtn").on("click", function() {
+			$("#addTimetableBtn").on("click", function() {
 				let term = $("#termInput option:selected").val();
 				let timetableName = $("#timetableNameInput").val();
 				
@@ -121,10 +121,7 @@
 				$.ajax({
 					type:"post"
 					, url:"/timetable/create"
-					, data:formData
-					, enctype:"multipart/form-data"
-					, processData:false
-					, contentType:false
+					, data:{"term":term, "timetableName":timetableName}
 					, success:function(response) {
 						if(response.result == "success") {
 							location.href="/timetable/lecture/input-view?id=" + response.id;	

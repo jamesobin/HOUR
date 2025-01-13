@@ -31,14 +31,14 @@ public class Memo {
 	@Column(name="userId")
 	private int userId;
 	
-	@Column(name="lectureId")
-	private int lectureId;
+	@Column(name="timetableId")
+	private int timetableId;
+	
+	@Column(name="lectureName")
+	private String lectureName;
 	
 	private String title;
 	private String contents;
-	
-	@Column(name="imagePath")
-	private String imagePath;
 	
 	@Column(name="createdAt")
 	@CreationTimestamp	

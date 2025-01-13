@@ -7,7 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jamesobin.hour.lecture.dto.CreditDTO;
+import com.jamesobin.hour.lecture.service.LectureService;
 import com.jamesobin.hour.timetable.domain.Timetable;
 import com.jamesobin.hour.timetable.dto.TimetableDTO;
 import com.jamesobin.hour.timetable.service.TimetableService;
@@ -19,9 +22,11 @@ import jakarta.servlet.http.HttpSession;
 public class LectureController {
 
 	private TimetableService timetableService;
+	private LectureService lectureService;
 	
-	public LectureController(TimetableService timetableService) {
+	public LectureController(TimetableService timetableService, LectureService lectureService) {
 		this.timetableService = timetableService;
+		this.lectureService = lectureService;
 	}
 
 	@GetMapping("/lecture/input-view")
@@ -36,6 +41,14 @@ public class LectureController {
 		model.addAttribute("selectedId", timetableId);
 		
 		return "timetable/lectureinput";
+	}
+	
+	@ResponseBody
+	@GetMapping("/lecture/list")
+	public List<CreditDTO> getLectureList(@RequestParam("id") int userId) {
+		List<CreditDTO> lectureList = lectureService.getCreditListByUserId(userId);
+		
+		return lectureList;
 	}
 
 }

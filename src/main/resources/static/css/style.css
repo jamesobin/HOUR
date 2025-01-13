@@ -23,7 +23,8 @@ header > .menu {
 }
 
 .memo-contents {
-	height:500px;
+	height:550px;
+	overflow: auto;
 }
 
 input[type=radio]:checked + label { 

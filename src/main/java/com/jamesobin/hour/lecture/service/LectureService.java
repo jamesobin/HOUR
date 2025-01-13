@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.jamesobin.hour.lecture.domain.Lecture;
+import com.jamesobin.hour.lecture.dto.CreditDTO;
 import com.jamesobin.hour.lecture.dto.LectureDTO;
 import com.jamesobin.hour.lecture.repository.LectureRepository;
 
@@ -129,6 +130,33 @@ public class LectureService {
 		} else {
 			return false;
 		}
+	}
+	
+	public List<CreditDTO> getCreditListByUserId(int userId) {
+		List<Lecture> lectureList = lectureRepository.findByUserId(userId);
+		
+		List<CreditDTO> allCreditDTOList = new ArrayList<>();
+		List<CreditDTO> creditDTOList = new ArrayList<>();
+		
+		for(Lecture lecture:lectureList) {
+			CreditDTO creditDTO = CreditDTO.builder()
+					.userId(lecture.getUserId())
+					.timetableId(lecture.getTimetableId())
+					.lectureName(lecture.getLectureName())
+					.professorName(lecture.getProfessorName())
+					.credit(lecture.getCredit())
+					.build();
+
+			allCreditDTOList.add(creditDTO);
+		}
+		
+		for(CreditDTO creditDTO:allCreditDTOList) {
+			if(!creditDTOList.contains(creditDTO)) {
+				creditDTOList.add(creditDTO);
+			}
+		}
+
+		return creditDTOList;
 	}
 	
 }

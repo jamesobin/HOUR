@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.jamesobin.hour.common.FileManager;
 import com.jamesobin.hour.memo.domain.Memo;
 import com.jamesobin.hour.memo.repository.MemoRepository;
 
@@ -19,15 +17,13 @@ public class MemoService {
 		this.memoRepository = memoRepository;
 	}
 
-	public boolean addMemo(int userId, int lectureId, String title, String contents, MultipartFile file) {
-		String imagePath = FileManager.saveFile(userId, file);
-		
+	public boolean addMemo(int userId, int timetableId, String lectureName, String title, String contents) {		
 		Memo memo = Memo.builder()
 		.userId(userId)
-		.lectureId(lectureId)
+		.timetableId(timetableId)
+		.lectureName(lectureName)
 		.title(title)
 		.contents(contents)
-		.imagePath(imagePath)
 		.build();
 		
 		try {
@@ -38,7 +34,7 @@ public class MemoService {
 		}
 	}
 	
-	public List<Memo> getPostList(int userId) {
+	public List<Memo> getMemoList(int userId) {
 		return memoRepository.findByUserId(userId);
 	}
 	
@@ -48,5 +44,41 @@ public class MemoService {
 		return optionalMemo.orElse(null);
 	}
 
+	public boolean deleteMemo(int id) {
+		Optional<Memo> optionalMemo = memoRepository.findById(id);
+		
+		if(optionalMemo.isPresent()) {
+			Memo memo = optionalMemo.get();
+			
+			memoRepository.delete(memo);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean updateMemo(int id, int timetableId, String lectureName, String title, String contents) {
+		Optional<Memo> optionalMemo = memoRepository.findById(id);
+		
+		if(optionalMemo.isPresent()) {
+			Memo memo = optionalMemo.get();
+			
+			memo = memo.toBuilder()
+					.timetableId(timetableId)
+					.lectureName(lectureName)
+					.title(title)
+					.contents(contents)
+					.build();
+			
+			try {
+				memoRepository.save(memo);
+				return true;
+			} catch(Exception e) {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 	
 }

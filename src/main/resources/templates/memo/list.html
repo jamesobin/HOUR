@@ -19,20 +19,34 @@
 						<tr>
 							<th></th>
 							<th>제목</th>
-							<th>시간표 이름</th>
+							<th>학기</th>
 							<th>수업명</th>
 							<th>날짜</th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="memo:${memoList}">
-							<td>1</td>
+						<tr th:each="memo, stat:${memoList}">
+							<td th:text="|${stat.count}|">1</td>
 							<td><a th:text="${memo.title}" th:href="|/memo/detail-view?id=${memo.id}|">첫번째 노트</a></td>
-							<td>2018년도 1학기</td>
-							<td>건축공학개론</td>
+							<th:block th:if="${memo.timetableId == 0}">
+								<td>-</td>
+							</th:block>
+							<th:block th:unless="${memo.timetableId == 0}">
+								<th:block th:each="timetable:${allTimetableList}">
+									<th:block th:if="${timetable.id == memo.timetableId}">
+										<td th:text="${timetable.term}">1</td>
+									</th:block>
+								</th:block>
+							</th:block>
+							<th:block th:if="${memo.lectureName == ''}">
+								<td>-</td>
+							</th:block>
+							<th:block th:unless="${memo.lectureName == ''}">
+								<td th:text="${memo.lectureName}">건축공학개론</td>
+							</th:block>
 							<td th:text="${#temporals.format(memo.updatedAt, 'yyyy-MM-dd')}">2018-05-03</td>
-							<td><button type="button" class="btn btn-block btn-dark">삭제</button></td>
+							<td><button type="button" class="delete-btn btn btn-block btn-danger btn-sm" th:data-memo-id="${memo.id}">삭제</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -43,5 +57,25 @@
 		</section>
 		
 		<script layout:fragment="script">
+			$(document).ready(function() {
+				$(".delete-btn").on("click", function() {
+					let id = $(this).data("memo-id");
 
+					$.ajax({
+						type:"delete"
+						, url:"/memo/delete"
+						, data:{"id":id}
+						, success:function(response) {
+							if(response.result == "success") {
+								location.href="/memo/list-view";
+							} else {
+								alert("삭제 실패!");
+							}
+						}
+						, error:function() {
+							alert("삭제 에러!");
+						}
+					});
+				});
+			});
 		</script>

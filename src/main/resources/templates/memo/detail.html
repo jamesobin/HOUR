@@ -11,24 +11,59 @@
 			</aside>
 			<div class="main-contents col-10 px-5">
 				<div class="d-flex">
-					<div class="mr-2">시간표</div>
-					<div class="border border-dark rounded mr-5 col-2">2018년도 1학기</div>
+					<div class="mr-2">학기</div>
+					<th:block th:if="${memo.timetableId == 0}">
+						<div class="border border-dark rounded mr-5 col-2"></div>
+					</th:block>
+					<th:block th:unless="${memo.timetableId == 0}">
+						<th:block th:each="timetable:${allTimetableList}">
+							<th:block th:if="${timetable.id == memo.timetableId}">
+								<div class="border border-dark rounded mr-5 col-2" th:text="${timetable.term}">1</div>
+							</th:block>
+						</th:block>
+					</th:block>
 					<div class="mr-2">수업명</div>
-					<div class="border border-dark rounded col-2">건축공학개론</div>
+					<th:block th:if="${memo.lectureName == ''}">
+						<div class="border border-dark rounded col-2"></div>
+					</th:block>
+					<th:block th:unless="${memo.lectureName == ''}">
+						<div class="border border-dark rounded col-2" th:text="${memo.lectureName}" id="lectureName">건축공학개론</div>
+					</th:block>
 				</div>
 				<div class="title-input-group mt-5">
 					<h3 th:text="${memo.title}">첫번째 노트</h3>
 				</div>
 				<div class="mt-4">
-			        <div class="memo-contents border border-dark rounded p-3" th:text="${memo.contents}">첫번재 강의입니다</div>
+			        <div class="memo-contents border border-dark rounded p-3" th:utext="${memo.contents}">첫번재 강의입니다</div>
 			    </div>
 			    <div class="d-flex justify-content-end">
 			    	<button type="button" class="btn btn-block btn-dark mt-3 col-1 mr-3" id="listBtn" onclick="location.href='/memo/list-view'">목록으로</button>
-				    <button type="button" class="btn btn-block btn-dark mt-3 col-1" id="updateBtn" th:onclick="|location.href='/memo/update-view?id=${memo.id}'|">수정하기</button>
+				    <button type="button" class="btn btn-block btn-dark mt-3 col-1 mr-3" id="updateBtn" th:onclick="|location.href='/memo/update-view?id=${memo.id}'|">수정하기</button>
+			    	<button type="button" class="delete-btn btn btn-block btn-dark mt-3 col-1" th:data-memo-id="${memo.id}">삭제</button>
 			    </div>
 			</div>
 		</section>
 		
 		<script layout:fragment="script">
-
+			$(document).ready(function() {
+				$(".delete-btn").on("click", function() {
+					let id = $(this).data("memo-id");
+	
+					$.ajax({
+						type:"delete"
+						, url:"/memo/delete"
+						, data:{"id":id}
+						, success:function(response) {
+							if(response.result == "success") {
+								location.href="/memo/list-view";
+							} else {
+								alert("삭제 실패!");
+							}
+						}
+						, error:function() {
+							alert("삭제 에러!");
+						}
+					});
+				});
+			});
 		</script>
