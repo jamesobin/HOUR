@@ -167,8 +167,8 @@ public class LectureService {
 		
 		for(Lecture lecture:lectureList) {
 			CreditDTO creditDTO = CreditDTO.builder()
-					.userId(lecture.getUserId())
-					.timetableId(lecture.getTimetableId())
+					.userId(userId)
+					.timetableId(timetableId)
 					.lectureName(lecture.getLectureName())
 					.professorName(lecture.getProfessorName())
 					.credit(lecture.getCredit())

@@ -14,7 +14,7 @@
 					<div class="col-3 p-0 mr-5">
 						<div class="mb-2">시간표</div>
 						<select id="timetableSelect">
-							<option value="0">시간표 선택</option>
+							<option value="">시간표 선택</option>
 							<th:block th:each="timetable:${allTimetableList}">
 								<option th:value="${timetable.id}" th:text="${timetable.timetableName}">시간표 이름</option>
 							</th:block>
@@ -25,7 +25,7 @@
 						<select id="lectureSelect">
 							<option value="">수업 선택</option>
 							<th:block th:each="credit:${creditDTOList}">
-								<option th:value="${credit.lectureName}" th:text="${credit.lectureName}">시간표 이름</option>
+								<option th:value="${credit.lectureName}" th:text="${credit.lectureName}">건축공학개론</option>
 							</th:block>
 						</select>
 					</div>
