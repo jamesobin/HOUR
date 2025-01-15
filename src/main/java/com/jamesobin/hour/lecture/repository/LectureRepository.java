@@ -12,6 +12,7 @@ public interface LectureRepository extends JpaRepository<Lecture, Integer> {
 
 	public List<Lecture> findByTimetableId(int timetableId);
 	public List<Lecture> findByUserId(int userId);
+	public List<Lecture> findByUserIdAndTimetableId(int userId, int timetableId);
 	
 	@Transactional
 	public void deleteByTimetableId(int timetableId);

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/default}">
+    
+		<section layout:fragment="contents" class="contents d-flex mt-4">
+			<aside class="side-menu col-2">
+				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='/grade/entire-view'">전체 성적 조회</button>
+				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='/grade/specific-view'">세부 성적 조회</button>
+				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='/grade/input-view'">성적 입력</button>
+			</aside>
+			<div class="main-contents col-10 px-5">
+				<div class="grade-info-box border border-dark">
+					<div class="ml-4 mt-3">
+						<div>학기 선택</div>
+						<select id="timetableSelect" class="col-3 mt-2">
+							<option value="">학기 선택</option>
+							<th:block>
+								<option>1학년 1학기</option>
+							</th:block>
+						</select>
+					</div>
+					<div class="d-flex align-items-center">
+						<div id="bar_chart" style="width:1200px; height:500px;"></div>
+						<div>
+							<h5 class="font-weight-bold">전체 평점</h5>
+							<div class="d-flex justify-content-end align-items-end">
+								<h4 class="text-danger">3.5</h4>
+								<h5>/4.3</h5>
+							</div>
+							<h5 class="font-weight-bold mt-5">취득 학점</h5>
+							<div class="d-flex justify-content-end align-items-end">
+								<h4 class="text-danger">128</h4>
+								<h5>/130</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<th:block layout:fragment="library">
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+				google.charts.load('current', {packages: ['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+				
+				// 차트 그리기 함수
+				function drawChart() {
+					const barData = google.visualization.arrayToDataTable([
+						['lectureName', 'grade'],
+						['건축공학개론', 4.0],
+						['공학프로그래밍', 4.3],
+						['인간의가치탐색', 2.7],
+						['물리학및실험1', 3.0],
+						['미적분학', 3.3],
+						['대학영어', 3.7]
+					]);
+					
+					const barOptions = {
+						chartArea: { left: 70, top: 50, width: '90%', height: '70%' },
+						legend: { position: 'none' },
+						pointSize: 10,
+						vAxis: {viewWindow: {min: 0.0, max: 4.5}, gridlines: { count: 9 }},
+						bar: { groupWidth: '50%' }, // 막대 너비
+					};
+					
+					const barChart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
+					barChart.draw(barData, barOptions);
+				}
+			</script>
+		</th:block>
+		
+		<script layout:fragment="script">
+			
+		</script>

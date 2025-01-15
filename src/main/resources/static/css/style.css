@@ -27,6 +27,14 @@ header > .menu {
 	overflow: auto;
 }
 
+.term-box {
+	width:150px;
+}
+
+.grade-input-table tr {
+	height:30px;
+}
+
 input[type=radio]:checked + label { 
 	background-color:#f95735;
 	border:#f95735; 

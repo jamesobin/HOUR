@@ -159,4 +159,31 @@ public class LectureService {
 		return creditDTOList;
 	}
 	
+	public List<CreditDTO> getCreditListByUserIdAndTimetableId(int userId, int timetableId) {
+		List<Lecture> lectureList = lectureRepository.findByUserIdAndTimetableId(userId, timetableId);
+		
+		List<CreditDTO> allCreditDTOList = new ArrayList<>();
+		List<CreditDTO> creditList = new ArrayList<>();
+		
+		for(Lecture lecture:lectureList) {
+			CreditDTO creditDTO = CreditDTO.builder()
+					.userId(lecture.getUserId())
+					.timetableId(lecture.getTimetableId())
+					.lectureName(lecture.getLectureName())
+					.professorName(lecture.getProfessorName())
+					.credit(lecture.getCredit())
+					.build();
+
+			allCreditDTOList.add(creditDTO);
+		}
+		
+		for(CreditDTO creditDTO:allCreditDTOList) {
+			if(!creditList.contains(creditDTO)) {
+				creditList.add(creditDTO);
+			}
+		}
+
+		return creditList;
+	}
+	
 }

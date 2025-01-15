@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/default}">
+    
+		<section layout:fragment="contents" class="contents d-flex mt-4">
+			<aside class="side-menu col-2">
+				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='/grade/entire-view'">전체 성적 조회</button>
+				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='/grade/specific-view'">세부 성적 조회</button>
+				<button type="button" class="btn btn-block btn-dark" onclick = "location.href='/grade/input-view'">성적 입력</button>
+			</aside>
+			<div class="main-contents col-10 px-5">
+				<div class="grade-info-box border border-dark">
+					<div class="d-flex align-items-center">
+						<div id="curve_chart" style="width:1200px; height:500px;"></div>
+						<div>
+							<h5 class="font-weight-bold">전체 평점</h5>
+							<div class="d-flex justify-content-end align-items-end">
+								<h4 class="text-danger">3.5</h4>
+								<h5>/4.3</h5>
+							</div>
+							<h5 class="font-weight-bold mt-5">취득 학점</h5>
+							<div class="d-flex justify-content-end align-items-end">
+								<h4 class="text-danger">128</h4>
+								<h5>/130</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<th:block layout:fragment="library">
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript">
+				google.charts.load('current', {packages: ['corechart']});
+				google.charts.setOnLoadCallback(drawChart);
+				
+				// 차트 그리기 함수
+				function drawChart() {
+				  const data1 = google.visualization.arrayToDataTable([
+				    ['term', 'grade', { role: 'style' }],
+				    ['1학년 1학기',  2.5, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['1학년 2학기',  2.6, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['2학년 1학기',  3.2, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['2학년 2학기',  3.1, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['3학년 1학기',  4.0, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['3학년 2학기',  3.8, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['4학년 1학기',  3.8, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['4학년 2학기',  4.1, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['5학년 1학기',  3.6, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				    ['5학년 2학기',  , 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
+				  ]);
+				
+				  const options1 = {
+				    chartArea: { left: 70, top: 50, width: '90%', height: '70%' },
+				    legend: { position: 'none' },
+				    series: { 0: { color: 'red' } },
+				    pointSize: 10,
+				    vAxis: {
+						viewWindow: {min: 2.0, max: 4.5},
+						gridlines: { count: 5 }
+					},
+				    pointSize: 7 // 포인트 크기
+				  };
+				
+				  const chart1 = new google.visualization.LineChart(document.getElementById('curve_chart'));
+				  chart1.draw(data1, options1);
+				}
+			</script>
+		</th:block>
+		
+		<script layout:fragment="script">
+		
+		</script>
