@@ -16,12 +16,12 @@
 					<div>
 						<h5 class="font-weight-bold">전체 평점</h5>
 						<div class="d-flex justify-content-end align-items-end">
-							<h4 class="text-danger">3.5</h4>
+							<h4 class="text-danger" th:text="${averageGrade}">3.5</h4>
 							<h5>/4.3</h5>
 						</div>
 						<h5 class="font-weight-bold mt-5">취득 학점</h5>
 						<div class="d-flex justify-content-end align-items-end">
-							<h4 class="text-danger">128</h4>
+							<h4 class="text-danger" th:text="${creditSum}">128</h4>
 							<h5>/130</h5>
 						</div>
 					</div>
@@ -35,14 +35,18 @@
 								<option th:value="${timetable.id}" th:text="${timetable.timetableName}" th:selected="${selectedId == timetable.id}">시간표 이름</option>
 							</th:block>
 						</select>
-						<div class="d-flex justify-content-between mt-2">
+						<div class="d-flex justify-content-between mt-3">
 							<div class="d-flex align-items-end">
-								<div class="mt-2">학기 :</div>
+								<div>학기 :</div>
 								<th:block th:each="timetable:${allTimetableList}">
 									<th:block th:if="${selectedId == timetable.id}">
 										<div class="term-box ml-2" th:text="${timetable.term}">1학년 1학기</div>
 									</th:block>
 								</th:block>
+							</div>
+							<div class="d-flex align-items-end">
+								<div>학기 평점 :</div>
+								<div class="ml-2" th:text="${averageGradeByTimetableId}">3.5</div>
 							</div>
 						</div>
 						<div>
@@ -56,8 +60,8 @@
 								</thead>
 								<tbody>
 									<tr th:each="lecture:${creditList}">
-									    <td th:value="${lecture.lectureName}" th:text="${lecture.lectureName}" class="lecture-name">건축공학개론</td>
-									    <td th:value="${lecture.credit}" th:text="${lecture.credit}" class="credit">3</td>
+									    <td th:text="${lecture.lectureName}" class="lecture-name">건축공학개론</td>
+									    <td th:text="${lecture.credit}" class="credit">3</td>
 										<td class="grade-result">
 											<th:block th:if="${#lists.contains(allLectureName, lecture.lectureName)}">
 												<th:block th:each="grade:${gradeList}">
@@ -103,42 +107,7 @@
 		
 		<th:block layout:fragment="library">
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-			<script type="text/javascript">
-				google.charts.load('current', {packages: ['corechart']});
-				google.charts.setOnLoadCallback(drawChart);
-				
-				// 차트 그리기 함수
-				function drawChart() {
-				  const data1 = google.visualization.arrayToDataTable([
-				    ['term', 'grade', { role: 'style' }],
-				    ['1학년 1학기',  2.5, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['1학년 2학기',  2.6, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['2학년 1학기',  3.2, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['2학년 2학기',  3.1, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['3학년 1학기',  4.0, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['3학년 2학기',  3.8, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['4학년 1학기',  3.8, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['4학년 2학기',  4.1, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['5학년 1학기',  3.6, 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				    ['5학년 2학기',  , 'point {fill-color: white; stroke-color: red; stroke-width: 2}'],
-				  ]);
-				
-				  const options1 = {
-				    chartArea: { left: 70, top: 50, width: '90%', height: '70%' },
-				    legend: { position: 'none' },
-				    series: { 0: { color: 'red' } },
-				    pointSize: 10,
-				    vAxis: {
-						viewWindow: {min: 2.0, max: 4.5},
-						gridlines: { count: 5 }
-					},
-				    pointSize: 7 // 포인트 크기
-				  };
-				
-				  const chart1 = new google.visualization.LineChart(document.getElementById('curve_chart'));
-				  chart1.draw(data1, options1);
-				}
-			</script>
+			<script type="text/javascript" src="/static/js/curvechart.js"></script>
 		</th:block>
 		
 		<script layout:fragment="script">

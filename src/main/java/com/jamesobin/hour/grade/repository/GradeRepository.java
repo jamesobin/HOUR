@@ -10,4 +10,6 @@ public interface GradeRepository extends JpaRepository<Grade, Integer> {
 
 	public List<Grade> findByTimetableId(int timetableId);
 	
+	public List<Grade> findByUserId(int userId);
+	
 }
