@@ -15,9 +15,9 @@
 					<div class="ml-4 mt-3">
 						<div>학기 선택</div>
 						<select id="timetableSelect" class="col-3 mt-2">
-							<option value="">학기 선택</option>
-							<th:block>
-								<option>1학년 1학기</option>
+							<option th:selected="${selectedId == null}" value="">학기 선택</option>
+							<th:block th:each="term:${termList}">
+								<option th:value="${term.timetableId}" th:text="${term.term}" th:selected="${selectedId == term.timetableId}">1학년 1학기</option>
 							</th:block>
 						</select>
 					</div>
@@ -42,36 +42,17 @@
 		
 		<th:block layout:fragment="library">
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-			<script type="text/javascript">
-				google.charts.load('current', {packages: ['corechart']});
-				google.charts.setOnLoadCallback(drawChart);
-				
-				// 차트 그리기 함수
-				function drawChart() {
-					const barData = google.visualization.arrayToDataTable([
-						['lectureName', 'grade'],
-						['건축공학개론', 4.0],
-						['공학프로그래밍', 4.3],
-						['인간의가치탐색', 2.7],
-						['물리학및실험1', 3.0],
-						['미적분학', 3.3],
-						['대학영어', 3.7]
-					]);
-					
-					const barOptions = {
-						chartArea: { left: 70, top: 50, width: '90%', height: '70%' },
-						legend: { position: 'none' },
-						pointSize: 10,
-						vAxis: {viewWindow: {min: 0.0, max: 4.5}, gridlines: { count: 9 }},
-						bar: { groupWidth: '50%' }, // 막대 너비
-					};
-					
-					const barChart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
-					barChart.draw(barData, barOptions);
-				}
-			</script>
+			<script type="text/javascript" src="/static/js/barchart.js"></script>
 		</th:block>
 		
 		<script layout:fragment="script">
-			
+			$("#timetableSelect").on("change", function() {
+				let id = $("#timetableSelect option:selected").val();
+				
+				if(id == "") {
+					location.href="/grade/specific-view";
+				} else {
+					location.href="/grade/specific-view?id=" + id;
+				}
+			});
 		</script>

@@ -7,7 +7,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.jamesobin.hour.grade.domian.Grade;
 import com.jamesobin.hour.grade.dto.AverageDTO;
+import com.jamesobin.hour.grade.repository.GradeRepository;
 import com.jamesobin.hour.timetable.domain.Timetable;
 import com.jamesobin.hour.timetable.repository.TimetableRepository;
 
@@ -16,10 +18,12 @@ public class AverageDTOService {
 
 	private GradeService gradeService;
 	private TimetableRepository timetableRepository;
+	private GradeRepository gradeRepository;
 	
-	public AverageDTOService(GradeService gradeService, TimetableRepository timetableRepository) {
+	public AverageDTOService(GradeService gradeService, TimetableRepository timetableRepository, GradeRepository gradeRepository) {
 		this.gradeService = gradeService;
 		this.timetableRepository = timetableRepository;
+		this.gradeRepository = gradeRepository;
 	}
 	
 	public List<Map<String, Object>> getAverageGradeForChart(int userId) {
@@ -118,6 +122,52 @@ public class AverageDTOService {
 		averageList.add(map10);
 		
 		return averageList;
+	}
+	
+	public List<Map<String, Object>> getGradeForChart(int timetableId) {
+		List<Grade> gradeList = gradeRepository.findByTimetableId(timetableId);
+		List<Map<String, Object>> gradeListByLecture = new ArrayList<>();
+		
+		for(Grade grade:gradeList) {
+			Map<String, Object> gradeMap = new HashMap<>();
+			List<Timetable> timetableList = timetableRepository.findByUserIdOrderByCreatedAtDesc(grade.getUserId());
+			
+			int term = 0;
+			
+			for(Timetable timetable:timetableList) {
+				if(timetable.getId() == grade.getTimetableId()) {
+					term = timetable.getTerm();
+				}
+			}
+			
+			if(term == 1) {
+				gradeMap.put("term", "1학년 1학기");
+			} else if(term == 2) {
+				gradeMap.put("term", "1학년 2학기");
+			} else if(term == 3) {
+				gradeMap.put("term", "2학년 1학기");
+			} else if(term == 4) {
+				gradeMap.put("term", "2학년 2학기");
+			} else if(term == 5) {
+				gradeMap.put("term", "3학년 1학기");
+			} else if(term == 6) {
+				gradeMap.put("term", "3학년 2학기");
+			} else if(term == 7) {
+				gradeMap.put("term", "4학년 1학기");
+			} else if(term == 8) {
+				gradeMap.put("term", "4학년 2학기");
+			} else if(term == 9) {
+				gradeMap.put("term", "5학년 1학기");
+			} else if(term == 10) {
+				gradeMap.put("term", "5학년 2학기");
+			}
+			
+			gradeMap.put("lecture", grade.getLectureName());
+			gradeMap.put("grade", grade.getGrade());
+			gradeListByLecture.add(gradeMap);
+		}
+		
+		return gradeListByLecture;
 	}
 	
 }

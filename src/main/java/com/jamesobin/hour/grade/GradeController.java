@@ -97,26 +97,36 @@ public class GradeController {
 	}
 	
 	@GetMapping("/specific-view")
-	public String getSpecificGrade(Model model, HttpSession session) {
+	public String getSpecificGrade(Model model, HttpSession session, @RequestParam(value="id", required=false) Integer timetableId) {
 		int userId = (Integer)session.getAttribute("userId");
 		
 		List<Timetable> allTimetableList = timetableService.getTimetableList(userId);
 		double averageGrade = gradeService.getAverageGrade(userId);
 		int creditSum = gradeService.getCreditSum(userId);
+		List<Map<String, Object>> termList = gradeService.getTerm(userId);
 		
 		model.addAttribute("allTimetableList", allTimetableList);
 		model.addAttribute("averageGrade", averageGrade);
 		model.addAttribute("creditSum", creditSum);
+		model.addAttribute("termList", termList);
+		model.addAttribute("selectedId", timetableId);
 		
 		return "grade/specific-grade";
 	}
 	
 	@ResponseBody
 	@GetMapping("/list")
-	public List<Map<String, Object>> getAverageDTOList(Model model, HttpSession session) {
+	public List<Map<String, Object>> getAverageDTOList(@RequestParam("id") int timetableId) {
+		List<Map<String, Object>> gradeList = averageDTOService.getGradeForChart(timetableId);
+		return gradeList;
+	}
+	
+	@ResponseBody
+	@GetMapping("/term/list")
+	public List<Map<String, Object>> termList(Model model, HttpSession session) {
 		int userId = (Integer)session.getAttribute("userId");
-		List<Map<String, Object>> averageList = averageDTOService.getAverageGradeForChart(userId);
-		return averageList;
+		List<Map<String, Object>> termList = gradeService.getTerm(userId);
+		return termList;
 	}
 	
 }
