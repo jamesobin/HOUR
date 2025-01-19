@@ -35,7 +35,11 @@
 							<th:block th:unless="${memo.timetableId == 0}">
 								<th:block th:each="timetable:${allTimetableList}">
 									<th:block th:if="${timetable.id == memo.timetableId}">
-										<td th:text="${timetable.term}">1</td>
+										<th:block th:each="term:${termList}">
+											<th:block th:if="${timetable.term == term.term}">
+												<td th:text="${term.termString}">1</td>
+											</th:block>
+										</th:block>
 									</th:block>
 								</th:block>
 							</th:block>

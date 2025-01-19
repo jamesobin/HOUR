@@ -67,6 +67,7 @@ public class GradeController {
 		double averageGrade = gradeService.getAverageGrade(userId);
 		double averageGradeByTimetableId = gradeService.getAverageGradeByTimetableId(timetableId);
 		int creditSum = gradeService.getCreditSum(userId);
+		String termString = timetableService.getTerm(timetableId);
 		
 		model.addAttribute("allTimetableList", allTimetableList);
 		model.addAttribute("creditList", creditList);
@@ -77,6 +78,7 @@ public class GradeController {
 		model.addAttribute("averageGrade", averageGrade);
 		model.addAttribute("creditSum", creditSum);
 		model.addAttribute("averageGradeByTimetableId", averageGradeByTimetableId);
+		model.addAttribute("termString", termString);
 		
 		return "grade/input";
 	}
@@ -104,6 +106,10 @@ public class GradeController {
 		double averageGrade = gradeService.getAverageGrade(userId);
 		int creditSum = gradeService.getCreditSum(userId);
 		List<Map<String, Object>> termList = gradeService.getTerm(userId);
+		if(timetableId != null) {
+			double averageGradeByTimetableId = gradeService.getAverageGradeByTimetableId(timetableId);
+			model.addAttribute("averageGradeByTimetableId", averageGradeByTimetableId);
+		}
 		
 		model.addAttribute("allTimetableList", allTimetableList);
 		model.addAttribute("averageGrade", averageGrade);

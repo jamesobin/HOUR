@@ -7,14 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.jamesobin.hour.memo.domain.Memo;
 import com.jamesobin.hour.memo.repository.MemoRepository;
+import com.jamesobin.hour.timetable.service.TimetableService;
 
 @Service
 public class MemoService {
 
 	private MemoRepository memoRepository;
+	private TimetableService timetableService;
 	
-	public MemoService(MemoRepository memoRepository) {
+	public MemoService(MemoRepository memoRepository, TimetableService timetableService) {
 		this.memoRepository = memoRepository;
+		this.timetableService = timetableService;
 	}
 
 	public boolean addMemo(int userId, int timetableId, String lectureName, String title, String contents) {		
@@ -79,6 +82,19 @@ public class MemoService {
 		} else {
 			return false;
 		}
+	}
+	
+	public String getTermString(int id) {
+		Optional<Memo> optionalMemo = memoRepository.findById(id);
+
+		String termString = null;
+		
+		if(optionalMemo.isPresent()) {
+			Memo memo = optionalMemo.get();
+			termString = timetableService.getTerm(memo.getTimetableId());
+		}
+		
+		return termString;
 	}
 	
 }

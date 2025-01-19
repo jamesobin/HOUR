@@ -186,4 +186,10 @@ public class LectureService {
 		return creditList;
 	}
 	
+	public Optional<Lecture> getLectureById(int id) {
+		Optional<Lecture> optionalLecture = lectureRepository.findById(id);
+		
+		return optionalLecture;
+	}
+	
 }

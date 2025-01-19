@@ -16,11 +16,7 @@
 						<div class="border border-dark rounded mr-5 col-2"></div>
 					</th:block>
 					<th:block th:unless="${memo.timetableId == 0}">
-						<th:block th:each="timetable:${allTimetableList}">
-							<th:block th:if="${timetable.id == memo.timetableId}">
-								<div class="border border-dark rounded mr-5 col-2" th:text="${timetable.term}">1</div>
-							</th:block>
-						</th:block>
+						<div class="border border-dark rounded mr-5 col-2" th:text="${termString}">1</div>
 					</th:block>
 					<div class="mr-2">수업명</div>
 					<th:block th:if="${memo.lectureName == ''}">

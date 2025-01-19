@@ -10,6 +10,11 @@ header > .logo {
 	height:80px;
 }
 
+.logo > .logo-btn:focus {
+	outline: none; 
+    box-shadow: none;
+}
+
 header > .menu {
 	height:80px;
 }
@@ -36,8 +41,8 @@ header > .menu {
 }
 
 input[type=radio]:checked + label { 
-	background-color:#f95735;
-	border:#f95735; 
+	background-color:#f95735 !important;
+	border:#f95735 !important; 
 }
 
 footer {

@@ -1,15 +1,20 @@
 package com.jamesobin.hour.lecture;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jamesobin.hour.lecture.domain.Lecture;
+import com.jamesobin.hour.lecture.dto.CreditDTO;
 import com.jamesobin.hour.lecture.service.LectureService;
 
 import jakarta.servlet.http.HttpSession;
@@ -65,7 +70,7 @@ public class LectureRestController {
 	}
 	
 	@PutMapping("/update")
-	public Map<String, String> updateMemo(
+	public Map<String, String> updateLecture(
 			@RequestParam("id") int id
 			, @RequestParam("lectureName") String lectureName
 			, @RequestParam("professorName") String professorName
@@ -84,6 +89,37 @@ public class LectureRestController {
 				, endTime
 				, classRoom)) {
 			resultMap.put("result", "success");
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	
+	@GetMapping("/detail")
+	public Map<String, Object> getLecture(@RequestParam("id") int lectureId) {
+		Optional<Lecture> lecture = lectureService.getLectureById(lectureId);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		if(lecture != null) {
+			resultMap.put("result", "success");
+			resultMap.put("lecture", lecture);
+		} else {
+			resultMap.put("result", "fail");
+		}
+		
+		return resultMap;
+	}
+	
+	@GetMapping("/list")
+	public Map<String, Object> getLecture(HttpSession session) {
+		int userId = (Integer)session.getAttribute("userId");
+		List<CreditDTO> lectureList = lectureService.getCreditListByUserId(userId);
+		
+		Map<String, Object> resultMap = new HashMap<>();
+		if(lectureList != null) {
+			resultMap.put("result", "success");
+			resultMap.put("lecture", lectureList);
 		} else {
 			resultMap.put("result", "fail");
 		}

@@ -9,12 +9,14 @@ async function fetchAndDrawChart() {
 
         const dataArray = [['Term', 'Grade', { role: 'style' }]];
 		chartData.forEach(item => {
-		            dataArray.push([
-		                item.term,
-		                item.average,
-		                'point {fill-color: white; stroke-color: red; stroke-width: 2}'
-		            ]);
-		        });
+			if(item.average != 0) {
+	            dataArray.push([
+	                item.term,
+	                item.average,
+	                'point {fill-color: white; stroke-color: red; stroke-width: 2}'
+	            ]);				
+			}
+		});
 
         const data = google.visualization.arrayToDataTable(dataArray);
 

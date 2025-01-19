@@ -1,6 +1,7 @@
 package com.jamesobin.hour.memo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,9 +51,11 @@ public class MemoController {
 		
 		List<Memo> memoList = memoService.getMemoList(userId);
 		List<Timetable> allTimetableList = timetableService.getTimetableList(userId);
+		List<Map<String, Object>> termList = timetableService.getTermString();
 		
 		model.addAttribute("memoList", memoList);
 		model.addAttribute("allTimetableList", allTimetableList);
+		model.addAttribute("termList", termList);
 		
 		return "memo/list";
 	}
@@ -63,9 +66,11 @@ public class MemoController {
 		
 		Memo memo = memoService.getMemo(id);
 		List<Timetable> allTimetableList = timetableService.getTimetableList(userId);
+		String termString = memoService.getTermString(id);
 		
 		model.addAttribute("memo", memo);
 		model.addAttribute("allTimetableList", allTimetableList);
+		model.addAttribute("termString", termString);
 		
 		return "memo/detail";
 	}

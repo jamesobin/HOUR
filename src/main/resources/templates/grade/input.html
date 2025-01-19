@@ -38,11 +38,7 @@
 						<div class="d-flex justify-content-between mt-3">
 							<div class="d-flex align-items-end">
 								<div>학기 :</div>
-								<th:block th:each="timetable:${allTimetableList}">
-									<th:block th:if="${selectedId == timetable.id}">
-										<div class="term-box ml-2" th:text="${timetable.term}">1학년 1학기</div>
-									</th:block>
-								</th:block>
+								<div class="term-box ml-2" th:text="${termString}">1학년 1학기</div>
 							</div>
 							<div class="d-flex align-items-end">
 								<div>학기 평점 :</div>

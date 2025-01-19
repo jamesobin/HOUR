@@ -38,32 +38,93 @@
 					</thead>
 					<tbody>
 						<th:block th:each="timetable:${tableList}">
-							<th:block th:each="period:${timetable.periodDTOList}">
-								<tr>
-									<th th:text="${period.period}">1교시</th>
-									<th:block th:each="lecture:${period.lectureList}">
-										<td>
-											<th:block th:if="${lecture} == null">
-												<div></div>
-											</th:block>
-											<th:block th:unless="${lecture} == null">
-												<div th:text="${lecture.lectureName}" class="font-weight-bold">강의명</div>
-												<div class="d-flex align-items-end">
-													<div th:text="${lecture.professorName}" class="font-weight-bold">교수명</div>
-													<div th:text="${lecture.classRoom}" class="small-text ml-2">강의실</div>
-												</div>
-											</th:block>
-										</td>
+							<tr th:each="period:${timetable.periodDTOList}">
+								<th th:text="${period.period}">1교시</th>
+								<td th:each="lecture:${period.lectureList}" class="p-2">
+									<th:block th:if="${lecture} == null">
+										<div></div>
 									</th:block>
-								</tr>
-							</th:block>
+									<th:block th:unless="${lecture} == null">
+										<div th:text="${lecture.lectureName}" class="lecture-name font-weight-bold">강의명</div>
+										<div class="d-flex align-items-end">
+											<div th:text="${lecture.professorName}" class="font-weight-bold">교수명</div>
+											<div th:text="${lecture.classRoom}" class="small-text ml-2">강의실</div>
+										</div>
+									</th:block>
+								</td>
+							</tr>
 						</th:block>
 					</tbody>
 				</table>
 			</div>
 		</section>
 	<script layout:fragment="script">
+		function mergeTableCells() {
+		    const table = document.getElementById("time-table");
+		    const rows = Array.from(table.getElementsByTagName("tr"));
+	
+		    // 각 열에 대해 병합 처리
+		    for (let colIndex = 1; colIndex < rows[0].children.length; colIndex++) { // 0번은 시간대 컬럼이므로 제외
+		        let startRow = 0; // 병합 시작 행
+		        let previousValue = null; // 이전 셀 값
+		        let rowspanCount = 1; // 병합될 셀의 수
+	
+		        for (let rowIndex = 1; rowIndex < rows.length; rowIndex++) { // 헤더 행 제외
+		            const currentCell = rows[rowIndex].children[colIndex];
+		            const currentValue = currentCell.textContent.trim();
+	
+		            if (previousValue && previousValue === currentValue && currentValue !== "") {
+		                // 값이 같다면 rowspan 증가
+		                rowspanCount++;
+		                currentCell.style.display = "none"; // 현재 셀 숨기기
+		            } else {
+		                // 값이 달라지면 병합 적용
+		                if (rowspanCount > 1) {
+		                    const startCell = rows[startRow].children[colIndex];
+		                    startCell.rowSpan = rowspanCount; // rowspan 설정
+		                }
+		                // 새로운 병합 시작
+		                startRow = rowIndex;
+		                rowspanCount = 1;
+		            }
+	
+		            previousValue = currentValue;
+		        }
+	
+		        // 마지막 병합 처리
+		        if (rowspanCount > 1) {
+		            const startCell = rows[startRow].children[colIndex];
+		            startCell.rowSpan = rowspanCount;
+		        }
+		    }
+		}
+	
+		function colorizeTable() {
+			const table = document.getElementById("time-table");
+			const cells = Array.from(table.getElementsByTagName("td")); // 모든 <td> 요소 가져오기
+		    const colorMap = {}; // 강의명에 따른 색상 저장
+		    const colors = ["#FFE9E9", "#EFF9CC", "#FFF9CC", "#F2E8E8", "#DCF2E9", "#FFEDDA", "#DEE8F6", "#DCEEF2"]; // 색상 배열
+		    let colorIndex = 0;
+
+		    cells.forEach(cell => {
+		        const lectureNameDiv = cell.querySelector(".lecture-name"); // 강의명 <div> 찾기
+		        if (lectureNameDiv) {
+		            const lectureName = lectureNameDiv.textContent.trim();
+		            if (!colorMap[lectureName]) {
+		                // 새로운 강의명이면 색상 할당
+		                colorMap[lectureName] = colors[colorIndex % colors.length];
+		                colorIndex++;
+		            }
+		            // 셀 배경색 설정
+		            cell.style.backgroundColor = colorMap[lectureName];
+		        }
+		    });
+		}
+	
 		$(document).ready(function() {
+			mergeTableCells();
+			colorizeTable();
+			
 			$("#updateBtn").on("click", function() {
 				let id = $("#timetableSelect option:selected").val();
 				
