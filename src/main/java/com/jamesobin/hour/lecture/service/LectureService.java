@@ -86,7 +86,7 @@ public class LectureService {
 			Lecture lecture = optionalLecture.get();
 			
 			if(lecture.getUserId() == userId) {
-				lectureRepository.delete(lecture);
+				lectureRepository.delete(lecture);		
 				
 				return true;				
 			} else {

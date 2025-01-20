@@ -49,6 +49,12 @@ public class GradeService {
 		}
 	}
 	
+	public List<Grade> getGradeListByUserId(int userId) {
+		List<Grade> gradeList = gradeRepository.findByUserId(userId);
+		
+		return gradeList;
+	}
+	
 	public List<Grade> getGradeListByTimetableId(int timetableId) {
 		List<Grade> gradeList = gradeRepository.findByTimetableId(timetableId);
 		
@@ -56,8 +62,7 @@ public class GradeService {
 			if(score.getGrade() == 4.3) {
 				
 			}
-		}
-		
+		}	
 		return gradeList;
 	}
 	

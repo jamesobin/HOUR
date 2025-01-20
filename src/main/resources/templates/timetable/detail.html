@@ -39,7 +39,7 @@
 					<tbody>
 						<th:block th:each="timetable:${tableList}">
 							<tr th:each="period:${timetable.periodDTOList}">
-								<th th:text="${period.period}">1교시</th>
+								<th th:text="${period.period}" class="text-center">1교시</th>
 								<td th:each="lecture:${period.lectureList}" class="p-2">
 									<th:block th:if="${lecture} == null">
 										<div></div>

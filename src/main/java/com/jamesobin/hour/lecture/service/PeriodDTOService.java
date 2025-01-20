@@ -211,25 +211,25 @@ public class PeriodDTOService {
 			}
 		}
 		
-		PeriodDTO periodDTO = PeriodDTO.builder().period("1교시").lectureList(firstPeriodlectureDTOList).build();
+		PeriodDTO periodDTO = PeriodDTO.builder().period("1교시 09:00~10:30").lectureList(firstPeriodlectureDTOList).build();
 		periodDTOList.add(periodDTO);
 		
-		periodDTO = PeriodDTO.builder().period("2교시").lectureList(secondPeriodlectureDTOList).build();
+		periodDTO = PeriodDTO.builder().period("2교시 10:30~12:00").lectureList(secondPeriodlectureDTOList).build();
 		periodDTOList.add(periodDTO);
 		
-		periodDTO = PeriodDTO.builder().period("3교시").lectureList(thirdPeriodlectureDTOList).build();
+		periodDTO = PeriodDTO.builder().period("3교시 12:00~13:30").lectureList(thirdPeriodlectureDTOList).build();
 		periodDTOList.add(periodDTO);
 		
-		periodDTO = PeriodDTO.builder().period("4교시").lectureList(fourthPeriodlectureDTOList).build();
+		periodDTO = PeriodDTO.builder().period("4교시 13:30~15:00").lectureList(fourthPeriodlectureDTOList).build();
 		periodDTOList.add(periodDTO);
 		
-		periodDTO = PeriodDTO.builder().period("5교시").lectureList(fifthPeriodlectureDTOList).build();
+		periodDTO = PeriodDTO.builder().period("5교시 15:00~16:30").lectureList(fifthPeriodlectureDTOList).build();
 		periodDTOList.add(periodDTO);
 		
-		periodDTO = PeriodDTO.builder().period("6교시").lectureList(sixthPeriodlectureDTOList).build();
+		periodDTO = PeriodDTO.builder().period("6교시 16:30~18:00").lectureList(sixthPeriodlectureDTOList).build();
 		periodDTOList.add(periodDTO);
 		
-		periodDTO = PeriodDTO.builder().period("7교시").lectureList(seventhPeriodlectureDTOList).build();
+		periodDTO = PeriodDTO.builder().period("7교시 18:00~19:30").lectureList(seventhPeriodlectureDTOList).build();
 		periodDTOList.add(periodDTO);
 		
 		return periodDTOList;
