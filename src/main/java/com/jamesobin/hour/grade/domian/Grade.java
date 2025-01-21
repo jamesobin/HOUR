@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name="`Grade`")
+@Table(name="`grade`")
 @Entity
 public class Grade {
 	@Id

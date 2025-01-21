@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.jamesobin.hour.grade.service.GradeService;
 import com.jamesobin.hour.timetable.domain.Timetable;
 import com.jamesobin.hour.timetable.dto.TimetableDTO;
 import com.jamesobin.hour.timetable.service.TimetableService;
@@ -19,8 +20,10 @@ import jakarta.servlet.http.HttpSession;
 public class TimetableController {
 	
 	private TimetableService timetableService;
-	public TimetableController(TimetableService timetableService) {
+	private GradeService gradeService;
+	public TimetableController(TimetableService timetableService, GradeService gradeService) {
 		this.timetableService = timetableService;
+		this.gradeService = gradeService;
 	}
 	
 	@GetMapping("")
@@ -40,9 +43,11 @@ public class TimetableController {
 		
 		List<TimetableDTO> tableList = timetableService.getTimetable(userId, id);
 		List<Timetable> allTimetableList = timetableService.getTimetableList(userId);
+		int credit = gradeService.getCreditSumByTimetableId(userId, id);
 		
 		model.addAttribute("tableList", tableList);
 		model.addAttribute("allTimetableList", allTimetableList);
+		model.addAttribute("credit", credit);
 		model.addAttribute("selectedId", id);
 		
 		return "timetable/detail";

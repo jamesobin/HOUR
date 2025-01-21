@@ -272,6 +272,18 @@ public class GradeService {
 		return creditSum;
 	}
 	
+	public int getCreditSumByTimetableId(int userId, int timetableId) {
+		List<CreditDTO> creditList = lectureService.getCreditListByUserIdAndTimetableId(userId, timetableId);
+		
+		int creditSum = 0;
+		
+		for(CreditDTO credit:creditList) {
+			creditSum += credit.getCredit();
+		}
+		
+		return creditSum;
+	}
+	
 	public boolean deleteGrade(int id) {
 		Optional<Grade> optionalGrade = gradeRepository.findById(id);
 		
